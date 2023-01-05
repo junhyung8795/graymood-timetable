@@ -6,19 +6,27 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function Home() {
-    useEffect(() => {
-        require("bootstrap/dist/js/bootstrap.bundle.min.js");
-    }, []);
     const router = useRouter();
 
     const [accessCode, setAccessCode] = useState("");
+    useEffect(() => {
+        require("bootstrap/dist/js/bootstrap.bundle.min.js");
+        const alreadyAccessed = localStorage.getItem("accessCode");
+        if (alreadyAccessed) {
+            router.push("/about");
+        }
+    }, []);
 
-    const handleSubmit = (e) => {
+    const handleLogin = (e) => {
         if (accessCode === "GM29") {
             e.preventDefault();
             localStorage.setItem("accessCode", accessCode);
             console.log(typeof accessCode);
             router.push("/about");
+        } else {
+            e.preventDefault();
+            e.target.firstElementChild.value = "";
+            e.target.firstElementChild.placeholder = "Wrong Code";
         }
     };
     return (
@@ -27,7 +35,11 @@ export default function Home() {
             <div className="title">
                 <h1>Graymood Timetable</h1>
             </div>
-            <form className="input-group mb-3" onSubmit={handleSubmit}>
+            <form
+                method="GET"
+                className="input-group mb-3"
+                onSubmit={handleLogin}
+            >
                 <input
                     type="text"
                     className="form-control"

@@ -1,9 +1,17 @@
 import Seo from "../components/Seo";
 import dbConnect from "../db/dbConnect";
 import Item from "../db/schema/item";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function About({ items }) {
-    console.log(items);
+    const router = useRouter();
+
+    useEffect(() => {}, []);
+    const handleLogout = (e) => {
+        localStorage.clear();
+        router.push("/");
+    };
     return (
         <div>
             <Seo title="About" />
@@ -17,6 +25,13 @@ export default function About({ items }) {
                     );
                 })}
             </ul>
+            <button
+                type="button"
+                class="btn btn-secondary"
+                onClick={handleLogout}
+            >
+                Logout
+            </button>
         </div>
     );
 }
