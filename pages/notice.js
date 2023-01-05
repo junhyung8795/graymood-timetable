@@ -7,7 +7,12 @@ import { useRouter } from "next/router";
 export default function About({ items }) {
     const router = useRouter();
 
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const alreadyAccessed = localStorage.getItem("accessCode");
+        if (!alreadyAccessed) {
+            router.push("/");
+        }
+    }, []);
     const handleLogout = (e) => {
         localStorage.clear();
         router.push("/");

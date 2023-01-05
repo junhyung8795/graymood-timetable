@@ -13,7 +13,7 @@ export default function Home() {
         require("bootstrap/dist/js/bootstrap.bundle.min.js");
         const alreadyAccessed = localStorage.getItem("accessCode");
         if (alreadyAccessed) {
-            router.push("/about");
+            router.push("/notice");
         }
     }, []);
 
@@ -22,7 +22,7 @@ export default function Home() {
             e.preventDefault();
             localStorage.setItem("accessCode", accessCode);
             console.log(typeof accessCode);
-            router.push("/about");
+            router.push("/notice");
         } else {
             e.preventDefault();
             e.target.firstElementChild.value = "";
