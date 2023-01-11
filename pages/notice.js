@@ -32,7 +32,7 @@ export default function About({ items }) {
             </ul>
             <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 onClick={handleLogout}
             >
                 Logout
@@ -50,5 +50,6 @@ export async function getServerSideProps() {
         item._id = item._id.toString();
         return item;
     });
+
     return { props: { items } };
 }
