@@ -1,12 +1,13 @@
 import Seo from "../components/Seo";
 import dbConnect from "../db/dbConnect";
 import Item from "../db/schema/item";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export default function About({ items }) {
     const router = useRouter();
-
+    const [loggedInUser, setLoggedInUser] = useState(false);
+    const [loggedInManager, setLoggedInManager] = useState(false);
     useEffect(() => {
         const alreadyAccessed = localStorage.getItem("accessCode");
         if (!alreadyAccessed) {
@@ -43,7 +44,6 @@ export default function About({ items }) {
 
 export async function getServerSideProps() {
     await dbConnect();
-    await Item.insertMany({ name: "newone!" });
     const result = await Item.find({}).exec();
     const items = result.map((doc) => {
         const item = doc.toObject();
