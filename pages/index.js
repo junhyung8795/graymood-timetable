@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import dbConnect from "../db/dbConnect";
 
-export default function Home() {
+export default function Home(req, res) {
     const router = useRouter();
 
     const [userAccessCode, setAccessCode] = useState("");
@@ -17,7 +17,6 @@ export default function Home() {
             router.push("/notice");
         }
     }, []);
-
     const handleUserLogin = async (e) => {
         e.preventDefault();
         const response = await fetch("/api/user/login", {
@@ -30,6 +29,7 @@ export default function Home() {
         const data = await response.json();
         if (data.statusCode === "200") {
             localStorage.setItem("accessCode", data.userAccessCode);
+            localStorage.setItem("views", data.views);
             router.push("/notice");
         } else {
             e.target.firstElementChild.value = "";

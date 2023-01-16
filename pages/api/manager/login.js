@@ -1,4 +1,5 @@
 import ManagerAccessCode from "../../../db/schema/managerAccessCode";
+import { getSession } from "../../../lib/get-session.js";
 
 export default async function managerLogin(req, res) {
     const typedCode = req.body.managerAccessCode;
@@ -6,6 +7,8 @@ export default async function managerLogin(req, res) {
         managerAccessCode: typedCode,
     });
     console.log(realCode);
+    await getSession(req, res);
+    console.log(req.session.views);
     if (realCode) {
         res.status(200).json({
             managerAccessCode: typedCode,

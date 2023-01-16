@@ -1,10 +1,10 @@
 import Seo from "../components/Seo";
-import dbConnect from "../db/dbConnect";
 import Item from "../db/schema/item";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import UserAccessCode from "../db/schema/userAccessCode";
 import ManagerAccessCode from "../db/schema/managerAccessCode";
+import { getSession } from "../lib/get-session";
 
 export default function About({ items, userAccessCode, managerAccessCode }) {
     const router = useRouter();
@@ -26,7 +26,6 @@ export default function About({ items, userAccessCode, managerAccessCode }) {
             setManagerLoggedIn(!managerLoggedIn);
         }
     }, []);
-
     const handleLogout = (e) => {
         localStorage.clear();
         setUserLoggedIn((current) => !current);
@@ -59,8 +58,8 @@ export default function About({ items, userAccessCode, managerAccessCode }) {
     );
 }
 
-export async function getServerSideProps() {
-    const itemArray = await Item.find({}).exec();
+export async function getServerSideProps({ req, res }) {
+    const itemArray = await Item.find({});
     const items = itemArray.map((doc) => {
         const item = doc.toObject();
         item._id = item._id.toString();
@@ -78,6 +77,8 @@ export async function getServerSideProps() {
         item._id = item._id.toString();
         return item;
     });
+    await getSession(req, res);
+    console.log(req.session);
 
     return { props: { items, userAccessCode, managerAccessCode } };
 }
