@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import dbConnect from "../db/dbConnect";
 
 export default function Home() {
     const router = useRouter();
@@ -66,4 +67,9 @@ export default function Home() {
             </form>
         </div>
     );
+}
+
+export async function getServerSideProps() {
+    await dbConnect();
+    return { props: {} };
 }

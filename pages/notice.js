@@ -3,19 +3,34 @@ import dbConnect from "../db/dbConnect";
 import Item from "../db/schema/item";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import UserAccessCode from "../db/schema/userAccessCode";
+import ManagerAccessCode from "../db/schema/managerAccessCode";
 
-export default function About({ items }) {
+export default function About({ items, userAccessCode, managerAccessCode }) {
     const router = useRouter();
-    const [loggedInUser, setLoggedInUser] = useState(false);
-    const [loggedInManager, setLoggedInManager] = useState(false);
+    const [userLoggedIn, setUserLoggedIn] = useState(Boolean);
+    const [managerLoggedIn, setManagerLoggedIn] = useState(Boolean);
     useEffect(() => {
         const alreadyAccessed = localStorage.getItem("accessCode");
         if (!alreadyAccessed) {
             router.push("/");
+        } else if (
+            localStorage.getItem("accessCode") ===
+            userAccessCode[0].userAccessCode
+        ) {
+            setUserLoggedIn(!userLoggedIn);
+        } else if (
+            localStorage.getItem("accessCode") ===
+            managerAccessCode[0].managerAccessCode
+        ) {
+            setManagerLoggedIn(!managerLoggedIn);
         }
     }, []);
+
     const handleLogout = (e) => {
         localStorage.clear();
+        setUserLoggedIn((current) => !current);
+        setManagerLoggedIn((current) => !current);
         router.push("/");
     };
     return (
@@ -31,6 +46,8 @@ export default function About({ items }) {
                     );
                 })}
             </ul>
+            {userLoggedIn ? <div>true</div> : <div>false</div>}
+            {managerLoggedIn ? <div>true</div> : <div>false</div>}
             <button
                 type="button"
                 className="btn btn-secondary"
@@ -43,13 +60,24 @@ export default function About({ items }) {
 }
 
 export async function getServerSideProps() {
-    await dbConnect();
-    const result = await Item.find({}).exec();
-    const items = result.map((doc) => {
+    const itemArray = await Item.find({}).exec();
+    const items = itemArray.map((doc) => {
+        const item = doc.toObject();
+        item._id = item._id.toString();
+        return item;
+    });
+    const userAccessCodeArray = await UserAccessCode.find({});
+    const userAccessCode = userAccessCodeArray.map((doc) => {
+        const item = doc.toObject();
+        item._id = item._id.toString();
+        return item;
+    });
+    const managerAccessCodeArray = await ManagerAccessCode.find({});
+    const managerAccessCode = managerAccessCodeArray.map((doc) => {
         const item = doc.toObject();
         item._id = item._id.toString();
         return item;
     });
 
-    return { props: { items } };
+    return { props: { items, userAccessCode, managerAccessCode } };
 }
