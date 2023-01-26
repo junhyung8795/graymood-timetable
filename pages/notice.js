@@ -1,26 +1,26 @@
 import Seo from "../components/Seo";
-import Item from "../db/schema/item";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import MemberAccessCode from "../db/schema/memberAccessCode";
-import ManagerAccessCode from "../db/schema/managerAccessCode";
 import { getSession, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import Notice from "../db/schema/notice";
 
-export default function About({ items, memberAccessCode, managerAccessCode }) {
+export default function NoticePage({ session, notice }) {
     const router = useRouter();
-    const { data: session, status } = useSession();
-    useEffect(() => {}, []);
+    useEffect(() => {
+        require("bootstrap/dist/js/bootstrap.bundle.min.js");
+    }, []);
     console.log(session);
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });
     };
     return (
         <div>
-            <Seo title="About" />
+            <Seo title="Notice" />
             <h1>About</h1>
             <ul>
-                {items.map((item, index) => {
+                {notice.map((item, index) => {
                     return (
                         <li key={index}>
                             <h1>{item.name}</h1>
@@ -56,12 +56,40 @@ export default function About({ items, memberAccessCode, managerAccessCode }) {
             >
                 Logout
             </button>
+            <div>
+                <Link href="/timeTable">동방일지</Link>
+            </div>
         </div>
     );
 }
 
 export async function getServerSideProps(context) {
-    const session = await getSession({ req: context.req });
+    // const itemArray = await Item.find({});
+    // const items = itemArray.map((doc) => {
+    //     const item = doc.toObject();
+    //     item._id = item._id.toString();
+    //     return item;
+    // });
+    // const memberAccessCodeArray = await MemberAccessCode.find({});
+    // const memberAccessCode = memberAccessCodeArray.map((doc) => {
+    //     const item = doc.toObject();
+    //     item._id = item._id.toString();
+    //     return item;
+    // });
+    // const managerAccessCodeArray = await ManagerAccessCode.find({});
+    // const managerAccessCode = managerAccessCodeArray.map((doc) => {
+    //     const item = doc.toObject();
+    //     item._id = item._id.toString();
+    //     return item;
+    // });
+    const noticeArray = await Notice.find({});
+    const notice = noticeArray.map((doc) => {
+        const item = doc.toObject();
+        item._id = item._id.toString();
+        return item;
+    });
+    const session = await getSession(context);
+    console.log(session);
     if (!session) {
         return {
             redirect: {
@@ -70,24 +98,5 @@ export async function getServerSideProps(context) {
             },
         };
     }
-    const itemArray = await Item.find({});
-    const items = itemArray.map((doc) => {
-        const item = doc.toObject();
-        item._id = item._id.toString();
-        return item;
-    });
-    const memberAccessCodeArray = await MemberAccessCode.find({});
-    const memberAccessCode = memberAccessCodeArray.map((doc) => {
-        const item = doc.toObject();
-        item._id = item._id.toString();
-        return item;
-    });
-    const managerAccessCodeArray = await ManagerAccessCode.find({});
-    const managerAccessCode = managerAccessCodeArray.map((doc) => {
-        const item = doc.toObject();
-        item._id = item._id.toString();
-        return item;
-    });
-
-    return { props: { items, memberAccessCode, managerAccessCode } };
+    return { props: { session, notice } };
 }

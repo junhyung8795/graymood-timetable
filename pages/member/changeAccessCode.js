@@ -11,7 +11,7 @@ export default function MemberChangeAccessCode() {
     const [userCode, setUserCode] = useState("");
     useEffect(() => {
         require("bootstrap/dist/js/bootstrap.bundle.min.js");
-        if (session.user.name !== "member") {
+        if (session.user.name !== "manager") {
             router.push("/");
         }
     }, []);

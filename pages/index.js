@@ -5,17 +5,15 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import dbConnect from "../db/dbConnect";
 import { signIn } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 
-export default function Home(req, res) {
+export default function Home({ session }) {
     const router = useRouter();
     const [userCode, setUserCode] = useState("");
     useEffect(() => {
         require("bootstrap/dist/js/bootstrap.bundle.min.js");
-        const alreadyAccessed = localStorage.getItem("accessCode");
-        if (alreadyAccessed) {
-            router.push("/notice");
-        }
     }, []);
+    console.log(session);
     const handleUserLogin = async (e) => {
         e.preventDefault();
         const response = await signIn("credentials", {
@@ -30,7 +28,16 @@ export default function Home(req, res) {
         }
     };
     return (
-        <div className="p-3 mb-2 bg-black text-white">
+        <div
+            className="p-3 mb-2 bg-black text-white"
+            style={{
+                height: "100vh",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+            }}
+        >
             <Seo title="Home" />
             <div className="title">
                 <h1>Graymood Timetable</h1>
@@ -59,7 +66,17 @@ export default function Home(req, res) {
     );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context) {
     await dbConnect();
-    return { props: {} };
+    const session = await getSession(context);
+    console.log(session);
+    if (session) {
+        return {
+            redirect: {
+                destination: "/notice",
+                permanent: false,
+            },
+        };
+    }
+    return { props: { session } };
 }
