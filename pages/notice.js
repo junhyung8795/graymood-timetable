@@ -18,12 +18,13 @@ export default function NoticePage({ session, notice }) {
     return (
         <div>
             <Seo title="Notice" />
-            <h1>About</h1>
+            <h1>동방 사용 필독 사항</h1>
             <ul>
                 {notice.map((item, index) => {
                     return (
                         <li key={index}>
-                            <h1>{item.name}</h1>
+                            <h1>{item.title}</h1>
+                            <h1>{item.detail}</h1>
                         </li>
                     );
                 })}
@@ -44,11 +45,7 @@ export default function NoticePage({ session, notice }) {
             ) : (
                 <div>memeber session</div>
             )}
-            {session?.user.name === "member" ? (
-                <div>membersession</div>
-            ) : (
-                <div>manager session</div>
-            )}
+
             <button
                 type="button"
                 className="btn btn-secondary"

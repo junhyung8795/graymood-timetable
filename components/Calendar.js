@@ -4,7 +4,16 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPugin from "@fullcalendar/interaction";
 
-export default function Calendar() {
+export default function Calendar(props) {
+    console.log(props.props);
+    console.log(typeof props);
+    const seemEvents = props.props.map((doc) => {
+        const title = `${doc.detail}  ${doc.name}`;
+        const start = `${doc.date}T${doc.startTime}`;
+        const end = `${doc.date}T${doc.endTime}`;
+        return { title, start, end };
+    });
+    console.log(seemEvents);
     return (
         <div>
             <FullCalendar
@@ -16,23 +25,7 @@ export default function Calendar() {
                     end: "dayGridMonth, timeGridWeek, timeGridDay",
                 }}
                 height={"90vh"}
-                events={[
-                    { title: "event sadasd", date: "2023-01-01" },
-                    { title: "event sadasd", date: "2023-01-01" },
-                    { title: "event sadasd", date: "2023-01-01" },
-                    { title: "event sadasd", date: "2023-01-01" },
-                    { title: "event sadasd", date: "2023-01-01" },
-                    { title: "event sadasd", date: "2023-01-01" },
-                    { title: "event sadasd", date: "2023-01-01" },
-                    { title: "event 2", date: "2023-01-02" },
-                    { title: "event 2", date: "2023-01-31" },
-                    { title: "event 2", date: "2023-01-31" },
-
-                    { title: "event 2", date: "2023-01-31" },
-                    { title: "event 2", date: "2023-01-31" },
-                    { title: "event 2", date: "2023-01-31" },
-                    { title: "event 2", date: "2023-01-31" },
-                ]}
+                events={seemEvents}
                 editable="false"
             />
         </div>

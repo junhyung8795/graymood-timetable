@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const ManagerAccessCodeSchema = new mongoose.Schema({
-    managerAccessCode: { type: String },
+    managerAccessCode: { type: String, required: true },
 });
 
 const ManagerAccessCode =
