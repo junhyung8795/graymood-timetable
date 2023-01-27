@@ -1,10 +1,10 @@
-import Seo from "../components/Seo";
+import Seo from "../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getSession, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import Notice from "../db/schema/notice";
+import Notice from "../../db/schema/notice";
 
 export default function NoticePage({ session, notice }) {
     const router = useRouter();
@@ -40,6 +40,9 @@ export default function NoticePage({ session, notice }) {
                         <Link href="/member/changeAccessCode">
                             동아리원 접속코드 변경
                         </Link>
+                    </div>
+                    <div>
+                        <Link href="/notice/changeNotice">공지사항 변경</Link>
                     </div>
                 </div>
             ) : (

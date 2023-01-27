@@ -34,7 +34,7 @@ export default function MemberChangeAccessCode() {
     };
     return (
         <div className="p-3 mb-2 bg-black text-white">
-            <Seo title="Change Member Code" />
+            <Seo title="ManagerChangeCode" />
             <div className="title">
                 <h1>Graymood Timetable</h1>
             </div>

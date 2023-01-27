@@ -11,7 +11,7 @@ export default function ManagerChangeAccessCode() {
     const [userCode, setUserCode] = useState("");
     useEffect(() => {
         require("bootstrap/dist/js/bootstrap.bundle.min.js");
-        if (session.user.name !== "manager") {
+        if (session?.user?.name !== "manager") {
             router.push("/");
         }
     }, []);
@@ -33,7 +33,7 @@ export default function ManagerChangeAccessCode() {
     };
     return (
         <div className="p-3 mb-2 bg-black text-white">
-            <Seo title="ManagerChangeCode" />
+            <Seo title="Change Manager Code" />
             <div className="title">
                 <h1>Graymood Timetable</h1>
             </div>
