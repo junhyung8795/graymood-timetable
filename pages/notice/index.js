@@ -8,23 +8,60 @@ import Notice from "../../db/schema/notice";
 
 export default function NoticePage({ session, notice }) {
     const router = useRouter();
-    useEffect(() => {
-        require("bootstrap/dist/js/bootstrap.bundle.min.js");
-    }, []);
+    useEffect(() => {}, []);
     console.log(session);
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });
+    };
+    const handleDeleteNotice = async (e) => {
+        const data = await fetch("/api/notice/deleteNotice", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ _id: e.target.id }),
+        })
+            .then((response) => response.json())
+            .then((data) => console.log(data));
+
+        // const result = response.json();
+        // if (result.statusCode === 200) {
+        //     console.log(result.message);
+        //     window.location.reload();
+        // } else if (response.statusCode === 500) {
+        //     console.log(response.message);
+        //     router.push("/notice");
+        // }
     };
     return (
         <div>
             <Seo title="Notice" />
             <h1>동방 사용 필독 사항</h1>
             <ul>
-                {notice.map((item, index) => {
+                {notice.map((item) => {
                     return (
-                        <li key={index}>
-                            <h1>{item.title}</h1>
-                            <h1>{item.detail}</h1>
+                        <li key={item._id}>
+                            <div>
+                                <h1>{item.title}</h1>
+                                <h1>{item.detail}</h1>
+                            </div>
+                            {session?.user.name === "manager" ? (
+                                <div>
+                                    <Link href="/notice/changeNotice">
+                                        공지사항 변경
+                                    </Link>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary"
+                                        onClick={handleDeleteNotice}
+                                        id={item._id}
+                                    >
+                                        x
+                                    </button>
+                                </div>
+                            ) : (
+                                <div></div>
+                            )}
                         </li>
                     );
                 })}
@@ -40,9 +77,6 @@ export default function NoticePage({ session, notice }) {
                         <Link href="/member/changeAccessCode">
                             동아리원 접속코드 변경
                         </Link>
-                    </div>
-                    <div>
-                        <Link href="/notice/changeNotice">공지사항 변경</Link>
                     </div>
                 </div>
             ) : (
@@ -82,12 +116,14 @@ export async function getServerSideProps(context) {
     //     item._id = item._id.toString();
     //     return item;
     // });
+    // await Notice.insertMany({ title: "sadasd", detail: "sadas" });
     const noticeArray = await Notice.find({});
     const notice = noticeArray.map((doc) => {
         const item = doc.toObject();
         item._id = item._id.toString();
         return item;
     });
+    console.log(notice);
     const session = await getSession(context);
     console.log(session);
     if (!session) {

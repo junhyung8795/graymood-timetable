@@ -8,9 +8,7 @@ import Event from "../db/schema/event";
 
 export default function TimeTable({ session, events }) {
     const router = useRouter();
-    useEffect(() => {
-        require("bootstrap/dist/js/bootstrap.bundle.min.js");
-    }, []);
+    useEffect(() => {}, []);
     console.log(session);
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });

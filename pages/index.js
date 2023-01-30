@@ -10,9 +10,7 @@ import { getSession, signOut, useSession } from "next-auth/react";
 export default function Home({ session }) {
     const router = useRouter();
     const [userCode, setUserCode] = useState("");
-    useEffect(() => {
-        require("bootstrap/dist/js/bootstrap.bundle.min.js");
-    }, []);
+    useEffect(() => {}, []);
     console.log(session);
     const handleUserLogin = async (e) => {
         e.preventDefault();

@@ -10,7 +10,6 @@ export default function MemberChangeAccessCode() {
     const { data: session, status } = useSession();
     const [userCode, setUserCode] = useState("");
     useEffect(() => {
-        require("bootstrap/dist/js/bootstrap.bundle.min.js");
         if (session?.user?.name !== "manager") {
             router.push("/");
         }
