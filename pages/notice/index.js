@@ -9,12 +9,13 @@ import Notice from "../../db/schema/notice";
 export default function NoticePage({ session, notice }) {
     const router = useRouter();
     useEffect(() => {}, []);
-    console.log(session);
+
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });
     };
+
     const handleDeleteNotice = async (e) => {
-        const data = await fetch("/api/notice/deleteNotice", {
+        await fetch("/api/notice/deleteNotice", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -22,7 +23,16 @@ export default function NoticePage({ session, notice }) {
             body: JSON.stringify({ _id: e.target.id }),
         })
             .then((response) => response.json())
-            .then((data) => console.log(data));
+            .then((data) => {
+                console.log(typeof data.statusCode);
+                if (data.statusCode === "200") {
+                    console.log(data.message);
+                    window.location.reload(true);
+                } else if (data.statusCode === "500") {
+                    console.log(data.message);
+                    window.location.reload(true);
+                }
+            });
 
         // const result = response.json();
         // if (result.statusCode === 200) {
@@ -123,9 +133,7 @@ export async function getServerSideProps(context) {
         item._id = item._id.toString();
         return item;
     });
-    console.log(notice);
     const session = await getSession(context);
-    console.log(session);
     if (!session) {
         return {
             redirect: {
