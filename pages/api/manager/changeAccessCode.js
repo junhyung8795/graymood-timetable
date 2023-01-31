@@ -16,8 +16,6 @@ export default async function changeManagerCode(req, res) {
             }
             await newCode.save();
             console.log("관리자코드변경완료");
-            console.log(newCode);
-            console.log(memberCode);
             return res.status(200).json({
                 statusCode: "200",
                 message: "관리자 인증코드가 변경되었습니다.",

@@ -1,4 +1,4 @@
-import Seo from "../../components/Seo";
+import Seo from "../../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import React, { useState } from "react";
@@ -8,28 +8,29 @@ import { useSession, getSession } from "next-auth/react";
 export default function ChangeNotice() {
     const router = useRouter();
     const { data: session, status } = useSession();
-    const [userNotice, setUserNotice] = useState("");
+    const [noticeDetail, setNoticeDetail] = useState("");
+    const [noticeTitle, setNoticeTitle] = useState("");
+
     useEffect(() => {}, []);
 
     const handleChangeNotice = async (e) => {
         e.preventDefault();
-        await fetch("/api/notice/changeNotice", {
+        const _id = String(router.query._id);
+        await fetch(`/api/notice/changeNotice`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userNotice }),
+            body: JSON.stringify({ noticeDetail, noticeTitle, _id }),
         })
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
-                    console.log(data.message);
-                    router.push("/");
+                    router.push("/notice");
                 } else if (data.statusCode === "500") {
-                    console.log(data.message);
-                    changeForm.value = "";
-                    changeForm.placeholder = data.message;
-                    router.push("/notice/changeNotice");
+                    detailForm.value = "";
+                    detailForm.placeholder = data.message;
+                    router.push(`/notice/changeNotice/${_id}`);
                 }
             });
     };
@@ -45,20 +46,42 @@ export default function ChangeNotice() {
             }}
         >
             <Seo title="Change Notice" />
+
             <div className="title">
                 <h1>Graymood Timetable</h1>
             </div>
+
             <h1>동방사용 필독사항 변경페이지</h1>
-            <form className="input-group mb-3" onSubmit={handleChangeNotice}>
-                <div className="form-floating">
+
+            <form
+                className="input-group mb-3"
+                onSubmit={handleChangeNotice}
+                style={{ display: "flex" }}
+            >
+                <div className="input-group">
+                    <span className="input-group-text">제목</span>
                     <textarea
+                        id="titleForm"
                         className="form-control"
-                        placeholder="제목"
-                        id="floatingTextarea2"
-                        style={{ height: "150px" }}
-                    ></textarea>
-                    <label for="floatingTextarea2">Comments</label>
+                        placeholder=""
+                        defaultValue={""}
+                        onChange={({ target }) => setNoticeTitle(target.value)}
+                        required="true"
+                    />
                 </div>
+
+                <div className="mb-3">
+                    <textarea
+                        id="detailForm"
+                        className="form-control"
+                        rows={6}
+                        style={{ width: "80vw", marginTop: "50px" }}
+                        placeholder="공지사항을 작성해주세요"
+                        onChange={({ target }) => setNoticeDetail(target.value)}
+                        required="true"
+                    />
+                </div>
+
                 <div className="col-12">
                     <button className="btn btn-primary" type="submit">
                         Update
