@@ -1,4 +1,4 @@
-import Seo from "../../../components/Seo";
+import Seo from "../../components/Seo";
 import { useEffect } from "react";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
@@ -12,15 +12,14 @@ export default function ChangeNotice() {
 
     useEffect(() => {}, []);
 
-    const handleChangeNotice = async (e) => {
+    const handleAddNotice = async (e) => {
         e.preventDefault();
-        const _id = String(router.query._id);
-        await fetch(`/api/notice/changeNotice`, {
+        await fetch(`/api/notice/addNotice`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ noticeDetail, noticeTitle, _id }),
+            body: JSON.stringify({ noticeDetail, noticeTitle }),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -29,7 +28,7 @@ export default function ChangeNotice() {
                 } else if (data.statusCode === "500") {
                     detailForm.value = "";
                     detailForm.placeholder = data.message;
-                    router.push(`/notice/changeNotice/${_id}`);
+                    router.push("/notice/addNotice");
                 }
             });
     };
@@ -44,17 +43,17 @@ export default function ChangeNotice() {
                 justifyContent: "center",
             }}
         >
-            <Seo title="Change Notice" />
+            <Seo title="Add Notice" />
 
             <div className="title">
                 <h1>Graymood Timetable</h1>
             </div>
 
-            <h1>동방사용 필독사항 변경페이지</h1>
+            <h1>동방사용 필독사항 추가페이지</h1>
 
             <form
                 className="input-group mb-3"
-                onSubmit={handleChangeNotice}
+                onSubmit={handleAddNotice}
                 style={{ display: "flex" }}
             >
                 <div className="input-group">
@@ -83,7 +82,7 @@ export default function ChangeNotice() {
 
                 <div className="col-12">
                     <button className="btn btn-primary" type="submit">
-                        Update
+                        Add
                     </button>
                 </div>
             </form>

@@ -90,6 +90,11 @@ export default function NoticePage({ session, notice }) {
                             동아리원 접속코드 변경
                         </Link>
                     </div>
+                    <div>
+                        <Link href="/notice/addNotice">
+                            동방사용 필독사항 추가
+                        </Link>
+                    </div>
                 </div>
             ) : (
                 <div>memeber session</div>
