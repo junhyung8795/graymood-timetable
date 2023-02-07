@@ -1,5 +1,5 @@
 import { SessionProvider } from "next-auth/react";
-import Layout from "../components/Layout";
+import "../styles/reset.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 
@@ -9,9 +9,7 @@ export default function App({ Component, pageProps }) {
     }, []);
     return (
         <SessionProvider session={pageProps.session}>
-            <Layout>
-                <Component {...pageProps} />
-            </Layout>
+            <Component {...pageProps} />
         </SessionProvider>
     );
 }

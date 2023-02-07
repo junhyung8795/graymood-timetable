@@ -28,6 +28,7 @@ export default function Home({ session }) {
         <div
             className="p-3 mb-2 bg-black text-white"
             style={{
+                width: "100vw",
                 height: "100vh",
                 display: "flex",
                 flexDirection: "column",
