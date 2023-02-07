@@ -20,7 +20,7 @@ import Button from "@mui/joy/Button";
 
 export default function TimeTable({ session, events }) {
     const router = useRouter();
-    const [dialogOpen, setDialogOpen] = useState(true);
+    const [dialogOpen, setDialogOpen] = useState(false);
     const [date, setDate] = useState(null);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
@@ -33,16 +33,16 @@ export default function TimeTable({ session, events }) {
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });
     };
-    // const handleOpen = () => {
-    //     setDialogOpen(true);
-    // };
+    const handleOpen = () => {
+        setDialogOpen(true);
+    };
     const handleClose = () => {
         setDialogOpen(false);
     };
 
     const compareTime = (modifiedStartTime, modifiedEndTime) => {
-        const startHour = modifiedStartTime?.slice(0, 2);
-        const endHour = modifiedEndTime?.slice(0, 2);
+        const startHour = Number(modifiedStartTime?.slice(0, 2));
+        const endHour = Number(modifiedEndTime?.slice(0, 2));
         if (startHour >= endHour) {
             return false;
         } else if (startHour < endHour) {
@@ -71,10 +71,10 @@ export default function TimeTable({ session, events }) {
             endUndefined = "";
             return true;
         } else {
-            compareTime(modifiedStartTime, modifiedEndTime);
-            if (compareTime) {
+            const compareTest = compareTime(modifiedStartTime, modifiedEndTime);
+            if (compareTest) {
                 return false;
-            } else if (!compareTime) {
+            } else if (!compareTest) {
                 setErrorMessage("예약 시간을 수정해주세요.");
                 setStartTime(null);
                 setEndTime(null);
@@ -83,8 +83,8 @@ export default function TimeTable({ session, events }) {
         }
     };
     const handleReserve = async (e) => {
-        e.preventDefault();
-        await fetch(`/api/timetable/reservation`, {
+        setErrorMessage("");
+        await fetch(`/api/timetable/addEvent`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -100,11 +100,9 @@ export default function TimeTable({ session, events }) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
-                    router.push("/notice");
+                    router.push("/timeTable");
                 } else if (data.statusCode === "500") {
-                    detailForm.value = "";
-                    detailForm.placeholder = data.message;
-                    router.push("/notice/addNotice");
+                    router.push("/timeTable");
                 }
             });
     };
@@ -125,16 +123,20 @@ export default function TimeTable({ session, events }) {
 
     return (
         <div>
+            <Button onClick={handleOpen}>Let's reserve</Button>
             <Dialog open={dialogOpen} onClose={handleClose}>
                 <DialogTitle>동방예약</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>{errorMessage}</DialogContentText>
+                    <DialogContentText style={{ marginBottom: "15px" }}>
+                        {errorMessage}
+                    </DialogContentText>
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
-                            testError();
-                            if (!testError) {
+                            const consq = testError();
+                            if (!consq) {
                                 handleReserve();
+                                handleClose();
                             }
                         }}
                     >
@@ -154,7 +156,7 @@ export default function TimeTable({ session, events }) {
                             <div
                                 style={{
                                     marginTop: "25px",
-                                    marginBottom: "25px",
+                                    marginBottom: "15px",
                                 }}
                             >
                                 <TimePicker
@@ -163,8 +165,6 @@ export default function TimeTable({ session, events }) {
                                     label="시작 시간을 선택해주세요"
                                     value={startTime}
                                     views={["hours", "minutes"]}
-                                    inputFormat="hh:mm"
-                                    mask="__:__"
                                     onChange={(newValue) => {
                                         const d = newValue.$d;
                                         setModifiedStartTime(timeModifier(d));
@@ -180,8 +180,6 @@ export default function TimeTable({ session, events }) {
                                     label="종료 시간을 선택해주세요"
                                     value={endTime}
                                     views={["hours", "minutes"]}
-                                    inputFormat="hh:mm"
-                                    mask="__:__"
                                     onChange={(newValue) => {
                                         const d = newValue.$d;
                                         setModifiedEndTime(timeModifier(d));
