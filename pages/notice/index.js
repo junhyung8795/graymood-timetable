@@ -26,10 +26,8 @@ export default function NoticePage({ session, notice }) {
             .then((data) => {
                 console.log(typeof data.statusCode);
                 if (data.statusCode === "200") {
-                    console.log(data.message);
                     window.location.reload(true);
                 } else if (data.statusCode === "500") {
-                    console.log(data.message);
                     window.location.reload(true);
                 }
             });
