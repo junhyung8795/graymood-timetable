@@ -56,7 +56,7 @@ export default function NoticePage({ session, notice }) {
                             {session?.user.name === "manager" ? (
                                 <div>
                                     <Link
-                                        href={`/notice/changeNotice/${item._id}`}
+                                        href={`/notice/updateNotice/${item._id}`}
                                     >
                                         공지사항 변경
                                     </Link>

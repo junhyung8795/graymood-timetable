@@ -13,13 +13,12 @@ export default function Calendar({ props }) {
     const [addEventOpen, setAddEventOpen] = useState(false);
     const [updateAndDeleteEventOpen, setUpdateAndDeleteEventOpen] =
         useState(false);
-
+    const [eventId, setEventId] = useState("");
     const parsedEvents = props.map((doc) => {
         const title = `${doc.detail}  ${doc.name}`;
         const start = `${doc.date}T${doc.startTime}`;
         const end = `${doc.date}T${doc.endTime}`;
         const id = `${doc._id}`;
-
         return {
             title,
             start,
@@ -95,6 +94,7 @@ export default function Calendar({ props }) {
                         setUpdateAndDeleteEventOpen={
                             setUpdateAndDeleteEventOpen
                         }
+                        id={eventId}
                     />
                 </div>
             ) : (
@@ -117,11 +117,14 @@ export default function Calendar({ props }) {
                 eventMouseEnter={(info) => {
                     // var eventDate = info.event.start;
                     // var eventno = info.event.end;
-                    // // console.log(eventDate);
+                    // console.log(typeof info.event.id);
                     // // console.log(eventno);
                     // //example output: "Wed Oct 02 2019 00:00:00 GMT-0600 (Central Standard Time)"
                 }}
-                eventClick={handleUpdateAndDeleteEventOpen}
+                eventClick={({ event }) => {
+                    handleUpdateAndDeleteEventOpen();
+                    setEventId(event.id);
+                }}
             />
         </div>
     );

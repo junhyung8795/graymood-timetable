@@ -208,7 +208,7 @@ export default function AddDialog(props) {
                                     width: "100px",
                                 }}
                             >
-                                예약을
+                                예약
                             </Button>
                         </div>
                     </form>

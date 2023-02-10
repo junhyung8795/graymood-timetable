@@ -15,7 +15,7 @@ export default function ChangeNotice() {
     const handleChangeNotice = async (e) => {
         e.preventDefault();
         const _id = String(router.query._id);
-        await fetch(`/api/notice/changeNotice`, {
+        await fetch(`/api/notice/updateNotice`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

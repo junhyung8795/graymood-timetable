@@ -25,7 +25,6 @@ export async function getServerSideProps(context) {
         item._id = item._id.toString();
         return item;
     });
-    console.log(events);
     if (!session) {
         return {
             redirect: {

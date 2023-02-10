@@ -1,6 +1,6 @@
 import Event from "../../../db/schema/event";
 
-export default async function addEvent(req, res) {
+export default async function moveEvent(req, res) {
     if (req.method === "POST") {
         try {
             const date = req.body.date;

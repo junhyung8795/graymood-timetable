@@ -13,7 +13,7 @@ import TextField from "@mui/material/TextField";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 
-export default function AddDialog(props) {
+export default function UpdateAndDeleteDialog(props) {
     const router = useRouter();
     const [date, setDate] = useState(null);
     const [startTime, setStartTime] = useState(null);
@@ -27,7 +27,6 @@ export default function AddDialog(props) {
     const handleClose = () => {
         props.setUpdateAndDeleteEventOpen(false);
     };
-
     const compareTime = (modifiedStartTime, modifiedEndTime) => {
         const startHour = Number(modifiedStartTime?.slice(0, 2));
         const endHour = Number(modifiedEndTime?.slice(0, 2));
@@ -71,9 +70,9 @@ export default function AddDialog(props) {
             }
         }
     };
-    const handleReserve = async (e) => {
+    const handleUpdate = async (e) => {
         setErrorMessage("");
-        await fetch(`/api/timetable/addEvent`, {
+        await fetch(`/api/timetable/updateEvent`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -84,6 +83,27 @@ export default function AddDialog(props) {
                 date,
                 modifiedStartTime,
                 modifiedEndTime,
+                id: props.id,
+            }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.statusCode === "200") {
+                    router.push("/timeTable");
+                } else if (data.statusCode === "500") {
+                    router.push("/timeTable");
+                }
+            });
+    };
+    const handleDelete = async (e) => {
+        setErrorMessage("");
+        await fetch(`/api/timetable/deleteEvent`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                id: props.id,
             }),
         })
             .then((response) => response.json())
@@ -121,9 +141,9 @@ export default function AddDialog(props) {
                     <form
                         onSubmit={(e) => {
                             e.preventDefault();
-                            const consq = testError();
-                            if (!consq) {
-                                handleReserve();
+                            const consequence = testError();
+                            if (!consequence) {
+                                handleUpdate();
                                 handleClose();
                             }
                         }}
@@ -208,10 +228,31 @@ export default function AddDialog(props) {
                                     width: "100px",
                                 }}
                             >
-                                예약을
+                                변경
                             </Button>
                         </div>
                     </form>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <Button
+                            type="submit"
+                            variant="outlined"
+                            style={{
+                                marginTop: "8px",
+                                width: "100px",
+                            }}
+                            onClick={() => {
+                                handleDelete();
+                                handleClose();
+                            }}
+                        >
+                            삭제
+                        </Button>
+                    </div>
                 </DialogContent>
                 <DialogActions></DialogActions>
             </Dialog>

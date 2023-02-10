@@ -8,7 +8,19 @@ export default async function addEvent(req, res) {
             const date = req.body.date;
             const startTime = req.body.modifiedStartTime;
             const endTime = req.body.modifiedEndTime;
-            const newEvent = await Event.insertMany({
+            const testAlreadyExist = await Event.exists({
+                date,
+                startTime,
+                endTime,
+            });
+            if (testAlreadyExist) {
+                console.log("예약 시간이 겹칩니다.");
+                return res.status(200).json({
+                    statusCode: "200",
+                    message: "예약 시간이 겹칩니다.",
+                });
+            }
+            await Event.insertMany({
                 name,
                 detail,
                 date,
