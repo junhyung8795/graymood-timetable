@@ -62,7 +62,7 @@ export default function ChangeNotice() {
                     <textarea
                         id="titleForm"
                         className="form-control"
-                        placeholder=""
+                        placeholder="제목을 작성해주세요"
                         defaultValue={""}
                         onChange={({ target }) => setNoticeTitle(target.value)}
                         required={true}
@@ -83,7 +83,7 @@ export default function ChangeNotice() {
 
                 <div className="col-12">
                     <button className="btn btn-primary" type="submit">
-                        Update
+                        공지사항 변경
                     </button>
                 </div>
             </form>

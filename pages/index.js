@@ -24,42 +24,65 @@ export default function Home({ session }) {
             router.push("/notice");
         }
     };
+
     return (
-        <div
-            className="p-3 mb-2 bg-black text-white"
-            style={{
-                width: "100vw",
-                height: "100vh",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-            }}
-        >
+        <div className="body">
             <Seo title="Home" />
             <div className="title">
                 <h1>Graymood Timetable</h1>
             </div>
             <form
                 method="GET"
-                className="input-group mb-3"
+                className="input-group mb-3 loginForm"
                 onSubmit={handleUserLogin}
                 id="login"
             >
                 <input
                     type="text"
-                    className="form-control"
                     placeholder="write the code"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
+                    className="form-control loginFormInput"
                     onChange={({ target }) => setUserCode(target.value)}
+                    style={{ borderRadius: "8px" }}
                 />
-                <div className="col-12">
+                <div
+                    className="col-12"
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: "10px",
+                    }}
+                >
                     <button className="btn btn-primary" type="submit">
                         Login
                     </button>
                 </div>
             </form>
+            <style jsx>
+                {`
+                    .body {
+                        width: 100vw;
+                        height: 100vh;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #343a40;
+                    }
+                    .title {
+                        color: white;
+                    }
+                    .loginForm {
+                        display: flex;
+                        width: 50%;
+                        justify-content: center;
+                    }
+                    .loginFormInput {
+                        text-align: center;
+                    }
+                `}
+            </style>
         </div>
     );
 }

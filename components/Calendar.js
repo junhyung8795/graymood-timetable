@@ -7,6 +7,8 @@ import { useRouter } from "next/router";
 import AddDialog from "./AddDialog";
 import UpdateAndDeleteDialog from "./UpdateAndDeleteDialog";
 import Button from "@mui/joy/Button";
+import { flexbox } from "@mui/system";
+import Link from "next/link";
 
 export default function Calendar({ props }) {
     const router = useRouter();
@@ -79,8 +81,44 @@ export default function Calendar({ props }) {
             });
     };
     return (
-        <div>
-            <Button onClick={handleAddEventOpen}>Let's reserve</Button>
+        <div
+            style={{
+                backgroundColor: "#343a40",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                height: "160vh",
+                width: "100vw",
+            }}
+        >
+            <nav
+                class="navbar bg-body-tertiary"
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    width: "95%",
+                }}
+            >
+                <button type="button" class="btn btn-outline-light">
+                    <div>
+                        <Link
+                            href="/notice"
+                            style={{ textDecoration: "none", color: "white" }}
+                        >
+                            동방사용필독사항
+                        </Link>
+                    </div>
+                </button>
+                <div>
+                    <button
+                        type="button"
+                        class="btn btn-outline-info"
+                        onClick={handleAddEventOpen}
+                    >
+                        예약하기
+                    </button>
+                </div>
+            </nav>
             {addEventOpen ? (
                 <div>
                     <AddDialog setAddEventOpen={setAddEventOpen} />
@@ -100,32 +138,37 @@ export default function Calendar({ props }) {
             ) : (
                 <div></div>
             )}
-            <FullCalendar
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPugin]}
-                initialView={"dayGridMonth"}
-                headerToolbar={{
-                    start: "today prev,next",
-                    center: "title",
-                    end: "dayGridMonth, timeGridWeek, timeGridDay",
+
+            <div
+                style={{
+                    backgroundColor: "white",
+                    color: "blue",
+                    width: "95%",
+                    padding: "15px",
+                    borderRadius: "10px ",
                 }}
-                height={"90vh"}
-                events={parsedEvents}
-                editable="false"
-                eventDrop={handleMoveEvent}
-                locale="ko"
-                eventOverlap={false}
-                eventMouseEnter={(info) => {
-                    // var eventDate = info.event.start;
-                    // var eventno = info.event.end;
-                    // console.log(typeof info.event.id);
-                    // // console.log(eventno);
-                    // //example output: "Wed Oct 02 2019 00:00:00 GMT-0600 (Central Standard Time)"
-                }}
-                eventClick={({ event }) => {
-                    handleUpdateAndDeleteEventOpen();
-                    setEventId(event.id);
-                }}
-            />
+            >
+                <FullCalendar
+                    plugins={[dayGridPlugin, timeGridPlugin, interactionPugin]}
+                    initialView={"dayGridMonth"}
+                    headerToolbar={{
+                        start: "today prev,next",
+                        center: "title",
+                        end: "dayGridMonth, timeGridWeek, timeGridDay",
+                    }}
+                    height={"90vh"}
+                    events={parsedEvents}
+                    editable="false"
+                    eventDrop={handleMoveEvent}
+                    locale="ko"
+                    eventOverlap={false}
+                    eventClick={({ event }) => {
+                        handleUpdateAndDeleteEventOpen();
+                        setEventId(event.id);
+                    }}
+                    contentHeight="600"
+                />
+            </div>
         </div>
     );
 }

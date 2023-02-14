@@ -31,82 +31,133 @@ export default function NoticePage({ session, notice }) {
                     window.location.reload(true);
                 }
             });
-
-        // const result = response.json();
-        // if (result.statusCode === 200) {
-        //     console.log(result.message);
-        //     window.location.reload();
-        // } else if (response.statusCode === 500) {
-        //     console.log(response.message);
-        //     router.push("/notice");
-        // }
     };
     return (
-        <div>
+        <div
+            style={{
+                backgroundColor: "#343a40",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                height: "160vh",
+                width: "100vw",
+                padding: "10px 10px",
+            }}
+        >
             <Seo title="Notice" />
-            <h1>동방 사용 필독 사항</h1>
-            <ul>
-                {notice.map((item) => {
-                    return (
-                        <li key={item._id}>
-                            <div>
-                                <h1>{item.title}</h1>
-                                <h1>{item.detail}</h1>
-                            </div>
-                            {session?.user.name === "manager" ? (
-                                <div>
-                                    <Link
-                                        href={`/notice/updateNotice/${item._id}`}
-                                    >
-                                        공지사항 변경
-                                    </Link>
-                                    <button
-                                        type="button"
-                                        className="btn btn-primary"
-                                        onClick={handleDeleteNotice}
-                                        id={item._id}
-                                    >
-                                        x
-                                    </button>
-                                </div>
-                            ) : (
-                                <div></div>
-                            )}
-                        </li>
-                    );
-                })}
-            </ul>
-            {session?.user.name === "manager" ? (
-                <div>
-                    <div>
-                        <Link href="/manager/changeAccessCode">
-                            관리자 접속코드 변경
-                        </Link>
-                    </div>
-                    <div>
-                        <Link href="/member/changeAccessCode">
-                            동아리원 접속코드 변경
-                        </Link>
-                    </div>
-                    <div>
-                        <Link href="/notice/addNotice">
-                            동방사용 필독사항 추가
-                        </Link>
-                    </div>
-                </div>
-            ) : (
-                <div>memeber session</div>
-            )}
-
-            <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleLogout}
-            >
-                Logout
-            </button>
             <div>
-                <Link href="/timeTable">동방일지</Link>
+                <h1 style={{ color: "white" }}>동방 사용 필독 사항</h1>
+                <nav
+                    className="navbar bg-body-tertiary"
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "90vw",
+                    }}
+                >
+                    <button type="button" className="btn btn-outline-light">
+                        <div>
+                            <Link
+                                href="/timeTable"
+                                style={{
+                                    textDecoration: "none",
+                                    color: "white",
+                                }}
+                            >
+                                동방 시간표
+                            </Link>
+                        </div>
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={handleLogout}
+                    >
+                        Logout
+                    </button>
+                </nav>
+            </div>
+            <div>
+                <ul
+                    style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                >
+                    {notice.map((item) => {
+                        return (
+                            <li key={item._id}>
+                                <div
+                                    style={{
+                                        backgroundColor: "white",
+                                        color: "black",
+                                        padding: "10px",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        alignItems: "center",
+                                        borderRadius: "10px",
+                                        width: "80vw",
+                                    }}
+                                >
+                                    <div>
+                                        <h1
+                                            style={{
+                                                fontSize: "20px",
+                                                whiteSpace: "pre-line",
+                                            }}
+                                        >
+                                            {item.title}
+                                        </h1>
+                                    </div>
+                                    <div>
+                                        <h1>{item.detail}</h1>
+                                    </div>
+                                </div>
+                                {session?.user.name === "manager" ? (
+                                    <div>
+                                        <Link
+                                            href={`/notice/updateNotice/${item._id}`}
+                                        >
+                                            공지사항 변경
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            className="btn btn-primary"
+                                            onClick={handleDeleteNotice}
+                                            id={item._id}
+                                        >
+                                            x
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div></div>
+                                )}
+                            </li>
+                        );
+                    })}
+                </ul>
+                {session?.user.name === "manager" ? (
+                    <div>
+                        <div>
+                            <Link href="/manager/changeAccessCode">
+                                관리자 접속코드 변경
+                            </Link>
+                        </div>
+                        <div>
+                            <Link href="/member/changeAccessCode">
+                                동아리원 접속코드 변경
+                            </Link>
+                        </div>
+                        <div>
+                            <Link href="/notice/addNotice">
+                                동방사용 필독사항 추가
+                            </Link>
+                        </div>
+                    </div>
+                ) : (
+                    <div>memeber session</div>
+                )}
             </div>
         </div>
     );
