@@ -35,13 +35,15 @@ export default function ChangeManagerAccessCode() {
     };
     return (
         <div
-            className="p-3 mb-2 bg-black text-white"
+            className="p-3 mb-2 text-white"
             style={{
                 height: "100vh",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
+                overflow: "scroll",
+                backgroundColor: "#111827",
             }}
         >
             <Seo title="Change Manager Code" />

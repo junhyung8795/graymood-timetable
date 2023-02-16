@@ -68,7 +68,8 @@ export default function Home({ session }) {
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
-                        background-color: #343a40;
+                        background-color: #111827;
+                        overflow: scroll;
                     }
                     .title {
                         color: white;

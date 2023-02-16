@@ -35,18 +35,20 @@ export default function NoticePage({ session, notice }) {
     return (
         <div
             style={{
-                backgroundColor: "#343a40",
+                backgroundColor: "#111827",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                height: "160vh",
+                height: "100vh",
                 width: "100vw",
                 padding: "10px 10px",
+                overflow: "scroll",
+                color: "white",
             }}
         >
             <Seo title="Notice" />
             <div>
-                <h1 style={{ color: "white" }}>동방 사용 필독 사항</h1>
+                <h1>동방 사용 필독 사항</h1>
                 <nav
                     className="navbar bg-body-tertiary"
                     style={{
@@ -83,6 +85,7 @@ export default function NoticePage({ session, notice }) {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        backgroundColor: "1F2937",
                     }}
                 >
                     {notice.map((item) => {
@@ -90,49 +93,63 @@ export default function NoticePage({ session, notice }) {
                             <li key={item._id}>
                                 <div
                                     style={{
-                                        backgroundColor: "white",
-                                        color: "black",
+                                        backgroundColor: "#1F2937",
+                                        color: "white",
                                         padding: "10px",
                                         display: "flex",
                                         flexDirection: "column",
                                         alignItems: "center",
                                         borderRadius: "10px",
                                         width: "80vw",
+                                        marginBottom: "30px",
                                     }}
                                 >
-                                    <div>
-                                        <h1
-                                            style={{
-                                                fontSize: "20px",
-                                                whiteSpace: "pre-line",
-                                            }}
-                                        >
-                                            {item.title}
-                                        </h1>
+                                    <div style={{ whiteSpace: "pre-line" }}>
+                                        {item.title}
                                     </div>
-                                    <div>
+                                    <div
+                                        style={{ whiteSpace: "pre-line" }}
+                                        className="mb-3"
+                                    >
                                         <h1>{item.detail}</h1>
                                     </div>
+                                    {session?.user.name === "manager" ? (
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "flex-end",
+                                            }}
+                                        >
+                                            <button
+                                                type="button"
+                                                class="btn btn-warning"
+                                                style={{
+                                                    marginRight: "10px",
+                                                }}
+                                            >
+                                                <Link
+                                                    href={`/notice/updateNotice/${item._id}`}
+                                                    style={{
+                                                        textDecoration: "none",
+                                                        color: "black",
+                                                    }}
+                                                >
+                                                    공지사항 변경
+                                                </Link>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                className="btn btn-danger"
+                                                onClick={handleDeleteNotice}
+                                                id={item._id}
+                                            >
+                                                x
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div></div>
+                                    )}
                                 </div>
-                                {session?.user.name === "manager" ? (
-                                    <div>
-                                        <Link
-                                            href={`/notice/updateNotice/${item._id}`}
-                                        >
-                                            공지사항 변경
-                                        </Link>
-                                        <button
-                                            type="button"
-                                            className="btn btn-primary"
-                                            onClick={handleDeleteNotice}
-                                            id={item._id}
-                                        >
-                                            x
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div></div>
-                                )}
                             </li>
                         );
                     })}
@@ -140,19 +157,55 @@ export default function NoticePage({ session, notice }) {
                 {session?.user.name === "manager" ? (
                     <div>
                         <div>
-                            <Link href="/manager/changeAccessCode">
-                                관리자 접속코드 변경
-                            </Link>
+                            <button
+                                type="button"
+                                class="btn btn-warning"
+                                style={{ marginBottom: "10px" }}
+                            >
+                                <Link
+                                    href="/manager/changeAccessCode"
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                    }}
+                                >
+                                    관리자 접속코드 변경
+                                </Link>
+                            </button>
                         </div>
                         <div>
-                            <Link href="/member/changeAccessCode">
-                                동아리원 접속코드 변경
-                            </Link>
+                            <button
+                                type="button"
+                                class="btn btn-warning"
+                                style={{ marginBottom: "10px" }}
+                            >
+                                <Link
+                                    href="/member/changeAccessCode"
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                    }}
+                                >
+                                    동아리원 접속코드 변경
+                                </Link>
+                            </button>
                         </div>
                         <div>
-                            <Link href="/notice/addNotice">
-                                동방사용 필독사항 추가
-                            </Link>
+                            <button
+                                type="button"
+                                class="btn btn-warning"
+                                style={{ marginBottom: "10px" }}
+                            >
+                                <Link
+                                    href="/notice/addNotice"
+                                    style={{
+                                        textDecoration: "none",
+                                        color: "black",
+                                    }}
+                                >
+                                    동방사용 필독사항 추가
+                                </Link>
+                            </button>
                         </div>
                     </div>
                 ) : (

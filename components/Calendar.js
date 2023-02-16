@@ -6,8 +6,6 @@ import interactionPugin from "@fullcalendar/interaction";
 import { useRouter } from "next/router";
 import AddDialog from "./AddDialog";
 import UpdateAndDeleteDialog from "./UpdateAndDeleteDialog";
-import Button from "@mui/joy/Button";
-import { flexbox } from "@mui/system";
 import Link from "next/link";
 
 export default function Calendar({ props }) {
@@ -87,8 +85,9 @@ export default function Calendar({ props }) {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                height: "160vh",
+                height: "110vh",
                 width: "100vw",
+                overflow: "scroll",
             }}
         >
             <nav
