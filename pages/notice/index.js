@@ -104,14 +104,14 @@ export default function NoticePage({ session, notice }) {
                                         marginBottom: "30px",
                                     }}
                                 >
-                                    <div style={{ whiteSpace: "pre-line" }}>
-                                        {item.title}
-                                    </div>
+                                    <div>{item.title}</div>
                                     <div
                                         style={{ whiteSpace: "pre-line" }}
                                         className="mb-3"
                                     >
-                                        <h1>{item.detail}</h1>
+                                        <h1 style={{ fontSize: "30px" }}>
+                                            {item.detail}
+                                        </h1>
                                     </div>
                                     {session?.user.name === "manager" ? (
                                         <div
@@ -122,7 +122,7 @@ export default function NoticePage({ session, notice }) {
                                         >
                                             <button
                                                 type="button"
-                                                class="btn btn-warning"
+                                                className="btn btn-warning"
                                                 style={{
                                                     marginRight: "10px",
                                                 }}
@@ -159,7 +159,7 @@ export default function NoticePage({ session, notice }) {
                         <div>
                             <button
                                 type="button"
-                                class="btn btn-warning"
+                                className="btn btn-warning"
                                 style={{ marginBottom: "10px" }}
                             >
                                 <Link
@@ -176,7 +176,7 @@ export default function NoticePage({ session, notice }) {
                         <div>
                             <button
                                 type="button"
-                                class="btn btn-warning"
+                                className="btn btn-warning"
                                 style={{ marginBottom: "10px" }}
                             >
                                 <Link
@@ -193,7 +193,7 @@ export default function NoticePage({ session, notice }) {
                         <div>
                             <button
                                 type="button"
-                                class="btn btn-warning"
+                                className="btn btn-warning"
                                 style={{ marginBottom: "10px" }}
                             >
                                 <Link
@@ -217,25 +217,6 @@ export default function NoticePage({ session, notice }) {
 }
 
 export async function getServerSideProps(context) {
-    // const itemArray = await Item.find({});
-    // const items = itemArray.map((doc) => {
-    //     const item = doc.toObject();
-    //     item._id = item._id.toString();
-    //     return item;
-    // });
-    // const memberAccessCodeArray = await MemberAccessCode.find({});
-    // const memberAccessCode = memberAccessCodeArray.map((doc) => {
-    //     const item = doc.toObject();
-    //     item._id = item._id.toString();
-    //     return item;
-    // });
-    // const managerAccessCodeArray = await ManagerAccessCode.find({});
-    // const managerAccessCode = managerAccessCodeArray.map((doc) => {
-    //     const item = doc.toObject();
-    //     item._id = item._id.toString();
-    //     return item;
-    // });
-    // await Notice.insertMany({ title: "sadasd", detail: "sadas" });
     const noticeArray = await Notice.find({});
     const notice = noticeArray.map((doc) => {
         const item = doc.toObject();

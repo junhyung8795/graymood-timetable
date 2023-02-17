@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import AddDialog from "./AddDialog";
 import UpdateAndDeleteDialog from "./UpdateAndDeleteDialog";
 import Link from "next/link";
+import "../styles/Calendar.module.css";
 
 export default function Calendar({ props }) {
     const router = useRouter();
@@ -14,6 +15,10 @@ export default function Calendar({ props }) {
     const [updateAndDeleteEventOpen, setUpdateAndDeleteEventOpen] =
         useState(false);
     const [eventId, setEventId] = useState("");
+    const [onDate, setOnDate] = useState("");
+    const [onName, setOnName] = useState("");
+    const [onDetail, setOnDetail] = useState("");
+
     const parsedEvents = props.map((doc) => {
         const title = `${doc.detail}  ${doc.name}`;
         const start = `${doc.date}T${doc.startTime}`;
@@ -81,7 +86,7 @@ export default function Calendar({ props }) {
     return (
         <div
             style={{
-                backgroundColor: "#343a40",
+                backgroundColor: "#111827",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -91,14 +96,14 @@ export default function Calendar({ props }) {
             }}
         >
             <nav
-                class="navbar bg-body-tertiary"
+                className="navbar bg-body-tertiary"
                 style={{
                     display: "flex",
                     justifyContent: "space-between",
                     width: "95%",
                 }}
             >
-                <button type="button" class="btn btn-outline-light">
+                <button type="button" className="btn btn-outline-light">
                     <div>
                         <Link
                             href="/notice"
@@ -111,7 +116,7 @@ export default function Calendar({ props }) {
                 <div>
                     <button
                         type="button"
-                        class="btn btn-outline-info"
+                        className="btn btn-outline-info"
                         onClick={handleAddEventOpen}
                     >
                         예약하기
@@ -132,6 +137,9 @@ export default function Calendar({ props }) {
                             setUpdateAndDeleteEventOpen
                         }
                         id={eventId}
+                        date={onDate}
+                        name={onName}
+                        detail={onDetail}
                     />
                 </div>
             ) : (
@@ -142,8 +150,7 @@ export default function Calendar({ props }) {
                 style={{
                     backgroundColor: "white",
                     color: "blue",
-                    width: "95%",
-                    padding: "15px",
+                    width: "100%",
                     borderRadius: "10px ",
                 }}
             >
@@ -164,8 +171,11 @@ export default function Calendar({ props }) {
                     eventClick={({ event }) => {
                         handleUpdateAndDeleteEventOpen();
                         setEventId(event.id);
+                        setOnDate(event._def.extendedProps.date);
+                        setOnName(event._def.extendedProps.name);
+                        setOnDetail(event._def.extendedProps.detail);
                     }}
-                    contentHeight="600"
+                    stickyHeaderDates="true"
                 />
             </div>
         </div>

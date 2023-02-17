@@ -15,13 +15,13 @@ import Button from "@mui/joy/Button";
 
 export default function UpdateAndDeleteDialog(props) {
     const router = useRouter();
-    const [date, setDate] = useState(null);
+    const [date, setDate] = useState(props.date);
     const [startTime, setStartTime] = useState(null);
     const [endTime, setEndTime] = useState(null);
     const [modifiedStartTime, setModifiedStartTime] = useState(null);
     const [modifiedEndTime, setModifiedEndTime] = useState(null);
-    const [name, setName] = useState("");
-    const [detail, setDetail] = useState("");
+    const [name, setName] = useState(props.name);
+    const [detail, setDetail] = useState(props.detail);
     const [errorMessage, setErrorMessage] = useState("");
 
     const handleClose = () => {
@@ -202,6 +202,7 @@ export default function UpdateAndDeleteDialog(props) {
                         <Input
                             type="text"
                             placeholder="이름"
+                            value={name}
                             onChange={({ target }) => setName(target.value)}
                             style={{
                                 marginBottom: "8px",
@@ -211,6 +212,7 @@ export default function UpdateAndDeleteDialog(props) {
                         <Input
                             type="text"
                             placeholder="용무"
+                            value={detail}
                             onChange={({ target }) => setDetail(target.value)}
                             required
                         />
