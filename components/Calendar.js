@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 import AddDialog from "./AddDialog";
 import UpdateAndDeleteDialog from "./UpdateAndDeleteDialog";
 import Link from "next/link";
-import "../styles/Calendar.module.css";
 
 export default function Calendar({ props }) {
     const router = useRouter();
@@ -20,7 +19,7 @@ export default function Calendar({ props }) {
     const [onDetail, setOnDetail] = useState("");
 
     const parsedEvents = props.map((doc) => {
-        const title = `${doc.detail}  ${doc.name}`;
+        const title = `${doc.name}  ${doc.detail}`;
         const start = `${doc.date}T${doc.startTime}`;
         const end = `${doc.date}T${doc.endTime}`;
         const id = `${doc._id}`;
@@ -101,6 +100,8 @@ export default function Calendar({ props }) {
                     display: "flex",
                     justifyContent: "space-between",
                     width: "95%",
+                    marginTop: "20px",
+                    marginBottom: "20px",
                 }}
             >
                 <button type="button" className="btn btn-outline-light">
@@ -148,8 +149,8 @@ export default function Calendar({ props }) {
 
             <div
                 style={{
-                    backgroundColor: "white",
-                    color: "blue",
+                    backgroundColor: "#1F2937",
+                    color: "white",
                     width: "100%",
                     borderRadius: "10px ",
                 }}
@@ -158,7 +159,7 @@ export default function Calendar({ props }) {
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPugin]}
                     initialView={"dayGridMonth"}
                     headerToolbar={{
-                        start: "today prev,next",
+                        start: "prev,next",
                         center: "title",
                         end: "dayGridMonth, timeGridWeek, timeGridDay",
                     }}
@@ -166,7 +167,7 @@ export default function Calendar({ props }) {
                     events={parsedEvents}
                     editable="false"
                     eventDrop={handleMoveEvent}
-                    locale="ko"
+                    locale="en"
                     eventOverlap={false}
                     eventClick={({ event }) => {
                         handleUpdateAndDeleteEventOpen();
@@ -176,6 +177,9 @@ export default function Calendar({ props }) {
                         setOnDetail(event._def.extendedProps.detail);
                     }}
                     stickyHeaderDates="true"
+                    eventColor="#C1BAFD"
+                    eventTextColor="white"
+                    displayEventTime={false}
                 />
             </div>
         </div>
