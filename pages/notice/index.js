@@ -209,7 +209,7 @@ export default function NoticePage({ session, notice }) {
                         </div>
                     </div>
                 ) : (
-                    <div>memeber session</div>
+                    <div></div>
                 )}
             </div>
         </div>

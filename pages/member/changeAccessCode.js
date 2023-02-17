@@ -56,17 +56,31 @@ export default function ChangeMemberAccessCode() {
                 className="input-group mb-3"
                 onSubmit={handleChangeCode}
                 id="login"
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
             >
-                <input
-                    id="change-form"
-                    type="text"
-                    className="form-control"
-                    placeholder="write the code"
-                    aria-label="Username"
-                    aria-describedby="basic-addon1"
-                    onChange={({ target }) => setUserCode(target.value)}
-                />
-                <div className="col-12">
+                <div
+                    style={{
+                        marginBottom: "10px",
+                    }}
+                >
+                    <input
+                        id="change-form"
+                        type="text"
+                        className="form-control"
+                        placeholder="write the code"
+                        aria-label="Username"
+                        aria-describedby="basic-addon1"
+                        onChange={({ target }) => setUserCode(target.value)}
+                    />
+                </div>
+                <div
+                    className="col-12"
+                    style={{ display: "flex", justifyContent: "center" }}
+                >
                     <button className="btn btn-primary" type="submit">
                         동아리원 접속코드 변경
                     </button>

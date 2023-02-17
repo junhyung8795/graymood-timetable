@@ -82,9 +82,9 @@ export default function addNotice() {
                     />
                 </div>
 
-                <div className="col-12">
+                <div className="col-12" style={{ marginTop: "15px" }}>
                     <button className="btn btn-primary" type="submit">
-                        Add
+                        공지사항 추가
                     </button>
                 </div>
             </form>

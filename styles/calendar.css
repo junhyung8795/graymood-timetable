@@ -48,3 +48,13 @@ colgroup {
 .fc-scrollgrid-sync-inner {
     background-color: #1f2937;
 }
+
+.fc-daygrid-day-number {
+    color: white;
+    text-decoration: none;
+}
+
+.fc-event {
+    color: white;
+    background-color: saddlebrown;
+}

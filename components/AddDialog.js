@@ -147,36 +147,42 @@ export default function AddDialog(props) {
                                     marginBottom: "15px",
                                 }}
                             >
-                                <TimePicker
-                                    disablePast={true}
-                                    minutesStep={60}
-                                    label="시작 시간을 선택해주세요"
-                                    value={startTime}
-                                    views={["hours", "minutes"]}
-                                    onChange={(newValue) => {
-                                        const d = newValue.$d;
-                                        setModifiedStartTime(timeModifier(d));
-                                        setStartTime(newValue);
-                                    }}
-                                    renderInput={(params) => (
-                                        <TextField {...params} />
-                                    )}
-                                />
-                                <TimePicker
-                                    disablePast={true}
-                                    minutesStep={60}
-                                    label="종료 시간을 선택해주세요"
-                                    value={endTime}
-                                    views={["hours", "minutes"]}
-                                    onChange={(newValue) => {
-                                        const d = newValue.$d;
-                                        setModifiedEndTime(timeModifier(d));
-                                        setEndTime(newValue);
-                                    }}
-                                    renderInput={(params) => (
-                                        <TextField {...params} />
-                                    )}
-                                />
+                                <div style={{ marginBottom: "10px" }}>
+                                    <TimePicker
+                                        disablePast={true}
+                                        minutesStep={60}
+                                        label="시작 시간을 선택해주세요"
+                                        value={startTime}
+                                        views={["hours", "minutes"]}
+                                        onChange={(newValue) => {
+                                            const d = newValue.$d;
+                                            setModifiedStartTime(
+                                                timeModifier(d)
+                                            );
+                                            setStartTime(newValue);
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField {...params} />
+                                        )}
+                                    />
+                                </div>
+                                <div style={{ marginBottom: "10px" }}>
+                                    <TimePicker
+                                        disablePast={true}
+                                        minutesStep={60}
+                                        label="종료 시간을 선택해주세요"
+                                        value={endTime}
+                                        views={["hours", "minutes"]}
+                                        onChange={(newValue) => {
+                                            const d = newValue.$d;
+                                            setModifiedEndTime(timeModifier(d));
+                                            setEndTime(newValue);
+                                        }}
+                                        renderInput={(params) => (
+                                            <TextField {...params} />
+                                        )}
+                                    />
+                                </div>
                             </div>
                         </LocalizationProvider>
                         <Input
