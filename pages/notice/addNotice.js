@@ -1,9 +1,9 @@
 import Seo from "../../components/Seo";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
-export default function addNotice() {
+export default function AddNotice() {
     const router = useRouter();
     const [noticeDetail, setNoticeDetail] = useState("");
     const [noticeTitle, setNoticeTitle] = useState("");
