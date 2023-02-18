@@ -15,7 +15,6 @@ export default async function changeMemberCode(req, res) {
                 });
             }
             await newCode.save();
-            console.log("동아리원코드변경완료");
             return res.status(200).json({
                 statusCode: "200",
                 message: "동아리원 인증코드가 변경되었습니다.",

@@ -10,8 +10,6 @@ export default function addNotice() {
     const [noticeDetail, setNoticeDetail] = useState("");
     const [noticeTitle, setNoticeTitle] = useState("");
 
-    useEffect(() => {}, []);
-
     const handleAddNotice = async (e) => {
         e.preventDefault();
         await fetch(`/api/notice/addNotice`, {

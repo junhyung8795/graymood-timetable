@@ -12,7 +12,6 @@ export default async function moveEvent(req, res) {
                 startTime,
                 endTime,
             });
-            console.log("예약 완료");
             return res.status(200).json({
                 statusCode: "200",
                 message: "예약이 완료되었습니다.",

@@ -9,7 +9,6 @@ export default async function addNotice(req, res) {
                 title: noticeTitle,
                 detail: noticeDetail,
             });
-            console.log("공지사항 추가 완료");
             return res.status(200).json({
                 statusCode: "200",
                 message: "공지사항이 추가되었습니다.",

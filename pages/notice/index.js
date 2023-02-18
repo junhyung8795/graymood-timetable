@@ -8,7 +8,6 @@ import Notice from "../../db/schema/notice";
 
 export default function NoticePage({ session, notice }) {
     const router = useRouter();
-    useEffect(() => {}, []);
 
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });
@@ -24,7 +23,6 @@ export default function NoticePage({ session, notice }) {
         })
             .then((response) => response.json())
             .then((data) => {
-                console.log(typeof data.statusCode);
                 if (data.statusCode === "200") {
                     window.location.reload(true);
                 } else if (data.statusCode === "500") {

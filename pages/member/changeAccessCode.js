@@ -8,7 +8,6 @@ import { getSession } from "next-auth/react";
 export default function ChangeMemberAccessCode() {
     const router = useRouter();
     const [userCode, setUserCode] = useState("");
-    useEffect(() => {}, []);
 
     const handleChangeCode = async (e) => {
         e.preventDefault();
@@ -24,10 +23,8 @@ export default function ChangeMemberAccessCode() {
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
-                    console.log(data.message);
                     router.push("/");
                 } else if (data.statusCode === "500") {
-                    console.log(data.message);
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
                     router.push("/member/changeAccessCode");

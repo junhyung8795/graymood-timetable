@@ -28,14 +28,12 @@ export default NextAuth({
                 });
                 if (memberAccessed) {
                     client.close();
-                    console.log("userLogin");
                     const user = {
                         name: "member",
                     };
                     return user;
                 } else if (managerAccessed) {
                     client.close();
-                    console.log("managerLogin");
                     const user = {
                         name: "manager",
                     };

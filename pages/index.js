@@ -9,8 +9,6 @@ import { getSession, signOut, useSession } from "next-auth/react";
 export default function Home({ session }) {
     const router = useRouter();
     const [userCode, setUserCode] = useState("");
-    useEffect(() => {}, []);
-    console.log(session);
     const handleUserLogin = async (e) => {
         e.preventDefault();
         const response = await signIn("credentials", {
@@ -91,7 +89,6 @@ export default function Home({ session }) {
 export async function getServerSideProps(context) {
     await dbConnect();
     const session = await getSession(context);
-    console.log(session);
     if (session) {
         return {
             redirect: {

@@ -10,8 +10,6 @@ export default function ChangeNotice() {
     const [noticeDetail, setNoticeDetail] = useState("");
     const [noticeTitle, setNoticeTitle] = useState("");
 
-    useEffect(() => {}, []);
-
     const handleChangeNotice = async (e) => {
         e.preventDefault();
         const _id = String(router.query._id);

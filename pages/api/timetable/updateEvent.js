@@ -14,9 +14,7 @@ export default async function updateEvent(req, res) {
                 startTime,
                 endTime,
             });
-            console.log(name, detail, date, startTime, endTime, id);
             if (testAlreadyExis) {
-                console.log("예약 시간이 겹칩니다.");
                 return res.status(200).json({
                     statusCode: "200",
                     message: "예약 시간이 겹칩니다.",
@@ -29,7 +27,6 @@ export default async function updateEvent(req, res) {
                 name,
                 detail,
             });
-            console.log("예약 변경 완료");
             return res.status(200).json({
                 statusCode: "200",
                 message: "예약이 변경되었습니다.",
