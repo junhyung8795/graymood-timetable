@@ -2,11 +2,10 @@ import Seo from "../../../components/Seo";
 import { useEffect } from "react";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { useSession, getSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 export default function ChangeNotice() {
     const router = useRouter();
-    const { data: session, status } = useSession();
     const [noticeDetail, setNoticeDetail] = useState("");
     const [noticeTitle, setNoticeTitle] = useState("");
 

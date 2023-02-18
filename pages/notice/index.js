@@ -1,8 +1,7 @@
 import Seo from "../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Notice from "../../db/schema/notice";
 

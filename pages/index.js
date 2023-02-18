@@ -1,10 +1,9 @@
 import Seo from "../components/Seo";
-import { useEffect } from "react";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import dbConnect from "../db/dbConnect";
 import { signIn } from "next-auth/react";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
 
 export default function Home({ session }) {
     const router = useRouter();
