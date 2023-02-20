@@ -35,6 +35,7 @@ export default function Home({ session }) {
                 id="login"
             >
                 <input
+                    required
                     type="text"
                     placeholder="write the code"
                     aria-label="Username"

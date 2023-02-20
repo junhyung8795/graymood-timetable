@@ -131,7 +131,6 @@ export default function UpdateAndDeleteDialog(props) {
 
     return (
         <div>
-            {/* <Button onClick={handleOpen}>Let's reserve</Button> */}
             <Dialog open={true} onClose={handleClose}>
                 <DialogTitle>동방 예약</DialogTitle>
                 <DialogContent>

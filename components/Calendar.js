@@ -104,16 +104,14 @@ export default function Calendar({ props }) {
                     marginBottom: "20px",
                 }}
             >
-                <button type="button" className="btn btn-outline-light">
-                    <div>
-                        <Link
-                            href="/notice"
-                            style={{ textDecoration: "none", color: "white" }}
-                        >
-                            동방사용필독사항
-                        </Link>
-                    </div>
-                </button>
+                <Link
+                    href="/notice"
+                    style={{ textDecoration: "none", color: "white" }}
+                >
+                    <button type="button" className="btn btn-outline-light">
+                        동방사용필독사항
+                    </button>
+                </Link>
                 <div>
                     <button
                         type="button"
