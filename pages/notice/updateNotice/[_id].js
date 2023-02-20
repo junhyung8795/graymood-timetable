@@ -2,12 +2,16 @@ import Seo from "../../../components/Seo";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import Notice from "../../../db/schema/notice";
 
-export default function ChangeNotice() {
+export default function ChangeNotice({ targetNotice }) {
     const router = useRouter();
-    const [noticeDetail, setNoticeDetail] = useState("");
-    const [noticeTitle, setNoticeTitle] = useState("");
-
+    const [noticeDetail, setNoticeDetail] = useState(
+        JSON.parse(targetNotice).detail
+    );
+    const [noticeTitle, setNoticeTitle] = useState(
+        JSON.parse(targetNotice).title
+    );
     const handleChangeNotice = async (e) => {
         e.preventDefault();
         const _id = String(router.query._id);
@@ -61,7 +65,7 @@ export default function ChangeNotice() {
                         id="titleForm"
                         className="form-control"
                         placeholder="제목을 작성해주세요"
-                        defaultValue={""}
+                        defaultValue={noticeTitle}
                         onChange={({ target }) => setNoticeTitle(target.value)}
                         required={true}
                     />
@@ -74,6 +78,7 @@ export default function ChangeNotice() {
                         rows={6}
                         style={{ width: "80vw", marginTop: "50px" }}
                         placeholder="공지사항을 작성해주세요"
+                        defaultValue={noticeDetail}
                         onChange={({ target }) => setNoticeDetail(target.value)}
                         required={true}
                     />
@@ -99,5 +104,8 @@ export async function getServerSideProps(context) {
             },
         };
     }
-    return { props: { session } };
+    const response = await Notice.findById(context.query._id);
+    const targetNotice = JSON.stringify(response);
+
+    return { props: { session, targetNotice } };
 }

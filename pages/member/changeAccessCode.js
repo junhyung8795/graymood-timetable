@@ -3,11 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import MemberAccessCode from "../../db/schema/memberAccessCode";
 
-export default function ChangeMemberAccessCode() {
+export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
     const router = useRouter();
-    const [userCode, setUserCode] = useState("");
-
+    const [userCode, setUserCode] = useState(
+        JSON.parse(targetMemeberAccessCode).memberAccessCode
+    );
     const handleChangeCode = async (e) => {
         e.preventDefault();
         const changeForm = document.getElementById("change-form");
@@ -68,6 +70,9 @@ export default function ChangeMemberAccessCode() {
                         type="text"
                         className="form-control"
                         placeholder="write the code"
+                        defaultValue={
+                            JSON.parse(targetMemeberAccessCode).memberAccessCode
+                        }
                         aria-label="Username"
                         aria-describedby="basic-addon1"
                         onChange={({ target }) => setUserCode(target.value)}
@@ -96,5 +101,7 @@ export async function getServerSideProps(context) {
             },
         };
     }
-    return { props: { session } };
+    const response = await MemberAccessCode.findOne({});
+    const targetMemeberAccessCode = JSON.stringify(response);
+    return { props: { session, targetMemeberAccessCode } };
 }

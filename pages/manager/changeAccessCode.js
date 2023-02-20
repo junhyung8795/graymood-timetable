@@ -3,10 +3,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
+import ManagerAccessCode from "../../db/schema/managerAccessCode";
 
-export default function ChangeManagerAccessCode() {
+export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
     const router = useRouter();
-    const [userCode, setUserCode] = useState("");
+    const [userCode, setUserCode] = useState(
+        JSON.parse(targetManagerAccessCode).managerAccessCode
+    );
 
     const handleChangeCode = async (e) => {
         e.preventDefault();
@@ -67,6 +70,10 @@ export default function ChangeManagerAccessCode() {
                         type="text"
                         className="form-control"
                         placeholder="write the code"
+                        defaultValue={
+                            JSON.parse(targetManagerAccessCode)
+                                .managerAccessCode
+                        }
                         aria-label="Username"
                         aria-describedby="basic-addon1"
                         onChange={({ target }) => setUserCode(target.value)}
@@ -95,5 +102,7 @@ export async function getServerSideProps(context) {
             },
         };
     }
-    return { props: { session } };
+    const response = await ManagerAccessCode.findOne({});
+    const targetManagerAccessCode = JSON.stringify(response);
+    return { props: { session, targetManagerAccessCode } };
 }
