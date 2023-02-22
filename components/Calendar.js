@@ -82,6 +82,10 @@ export default function Calendar({ props }) {
                 }
             });
     };
+    const preventDragHandler = (e) => {
+        e.preventDefault();
+        window.stop();
+    };
     return (
         <div
             style={{
@@ -93,6 +97,7 @@ export default function Calendar({ props }) {
                 width: "100vw",
                 overflow: "scroll",
             }}
+            onDragStart={preventDragHandler}
         >
             <nav
                 className="navbar bg-body-tertiary"
@@ -178,6 +183,7 @@ export default function Calendar({ props }) {
                     eventColor="#C1BAFD"
                     eventTextColor="white"
                     displayEventTime={false}
+                    eventDragMinDistance={1}
                 />
             </div>
         </div>

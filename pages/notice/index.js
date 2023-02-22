@@ -86,6 +86,7 @@ export default function NoticePage({ session, notice }) {
                         flexDirection: "column",
                         alignItems: "center",
                         backgroundColor: "1F2937",
+                        paddingLeft: "0px",
                     }}
                 >
                     {notice.map((item) => {
