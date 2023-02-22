@@ -200,7 +200,7 @@ export default function NoticePage({ session, notice }) {
                                 <button
                                     type="button"
                                     className="btn btn-warning"
-                                    style={{ marginBottom: "9px" }}
+                                    style={{ marginBottom: "10px" }}
                                 >
                                     동방사용 필독사항 추가
                                 </button>
