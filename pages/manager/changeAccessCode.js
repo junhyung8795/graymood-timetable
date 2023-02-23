@@ -2,7 +2,7 @@ import Seo from "../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import ManagerAccessCode from "../../db/schema/managerAccessCode";
 
 export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
@@ -10,6 +10,13 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
     const [userCode, setUserCode] = useState(
         JSON.parse(targetManagerAccessCode).managerAccessCode
     );
+    const { data: session, status } = useSession();
+
+    useEffect(() => {
+        if (session?.user?.name !== "manager") {
+            router.push("/");
+        }
+    });
 
     const handleChangeCode = async (e) => {
         e.preventDefault();
@@ -29,6 +36,8 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
                     router.push("/manager/changeAccessCode");
+                } else {
+                    router.push("/notice");
                 }
             });
     };
@@ -92,17 +101,8 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
     );
 }
 
-export async function getServerSideProps(context) {
-    const session = await getSession(context);
-    if (session?.user?.name !== "manager") {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
+export async function getServerSideProps() {
     const response = await ManagerAccessCode.findOne({});
     const targetManagerAccessCode = JSON.stringify(response);
-    return { props: { session, targetManagerAccessCode } };
+    return { props: { targetManagerAccessCode } };
 }

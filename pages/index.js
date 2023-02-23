@@ -1,13 +1,21 @@
 import Seo from "../components/Seo";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import dbConnect from "../db/dbConnect";
 import { signIn } from "next-auth/react";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
-export default function Home({ session }) {
+export default function Home() {
     const router = useRouter();
     const [userCode, setUserCode] = useState("");
+    const { data: session, status } = useSession();
+
+    useEffect(() => {
+        if (session) {
+            router.push("/notice");
+        }
+    });
+
     const handleUserLogin = async (e) => {
         e.preventDefault();
         const response = await signIn("credentials", {
@@ -86,16 +94,16 @@ export default function Home({ session }) {
     );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     await dbConnect();
-    const session = await getSession(context);
-    if (session) {
-        return {
-            redirect: {
-                destination: "/notice",
-                permanent: false,
-            },
-        };
-    }
-    return { props: { session } };
+    // const session = await getSession(context);
+    // if (session) {
+    //     return {
+    //         redirect: {
+    //             destination: "/notice",
+    //             permanent: false,
+    //         },
+    //     };
+    // }
+    return { props: {} };
 }

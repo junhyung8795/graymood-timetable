@@ -1,12 +1,20 @@
 import Seo from "../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useRouter } from "next/router";
-import { getSession, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Notice from "../../db/schema/notice";
+import React, { useEffect } from "react";
 
-export default function NoticePage({ session, notice }) {
+export default function NoticePage({ notice }) {
     const router = useRouter();
+    const { data: session, status } = useSession();
+
+    useEffect(() => {
+        if (!session) {
+            router.push("/");
+        }
+    });
 
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });
@@ -105,12 +113,16 @@ export default function NoticePage({ session, notice }) {
                                         marginBottom: "30px",
                                     }}
                                 >
-                                    <div>{item.title}</div>
+                                    <div>
+                                        <h1 style={{ fontSize: "20px" }}>
+                                            {item.title}
+                                        </h1>
+                                    </div>
                                     <div
                                         style={{ whiteSpace: "pre-line" }}
                                         className="mb-3"
                                     >
-                                        <h1 style={{ fontSize: "30px" }}>
+                                        <h1 style={{ fontSize: "16px" }}>
                                             {item.detail}
                                         </h1>
                                     </div>
@@ -215,21 +227,13 @@ export default function NoticePage({ session, notice }) {
     );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     const noticeArray = await Notice.find({});
     const notice = noticeArray.map((doc) => {
         const item = doc.toObject();
         item._id = item._id.toString();
         return item;
     });
-    const session = await getSession(context);
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
-    return { props: { session, notice } };
+
+    return { props: { notice } };
 }

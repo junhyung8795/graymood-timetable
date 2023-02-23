@@ -7,7 +7,78 @@ import { useRouter } from "next/router";
 import AddDialog from "./AddDialog";
 import UpdateAndDeleteDialog from "./UpdateAndDeleteDialog";
 import Link from "next/link";
+import styled from "@emotion/styled";
 
+export const StyleWrapper = styled.div`
+    .fc .fc-timegrid-slot-minor {
+        border-top-style: none;
+    }
+    .fc-day-number {
+        font-size: 1.5em;
+        color: #ffff;
+    }
+    .fc-day-header {
+        font-size: 1.5em;
+        color: #00b294;
+    }
+    .fc-header-toolbar {
+        font-size: 10px;
+        height: 90px;
+    }
+    .fc-toolbar-title {
+        font-size: 9px;
+    }
+    .fc-toolbar-chunk:nth-of-type(1) {
+        display: block;
+        width: 20%;
+        font-size: 9px;
+        box-sizing: border-box;
+    }
+    .fc-toolbar-chunk:nth-of-type(2) {
+        display: block;
+        width: 30%;
+        font-size: 10px;
+        box-sizing: border-box;
+    }
+
+    .fc-toolbar-chunk:nth-of-type(3) {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        width: 50.5%;
+        font-size: 15px;
+        box-sizing: border-box;
+    }
+    colgroup {
+        background-color: #1f2937;
+    }
+
+    .fc-col-header-cell-cushion {
+        color: white;
+        text-decoration: none;
+    }
+
+    .fc-scrollgrid-sync-inner {
+        background-color: #1f2937;
+    }
+
+    .fc-daygrid-day-number {
+        color: white;
+        text-decoration: none;
+    }
+
+    .fc-event {
+        color: white;
+        background-color: saddlebrown;
+    }
+    .fc-daygrid-body-natural {
+        display: none;
+    }
+
+    .fc .fc-timegrid-slot-minor {
+        border-top-style: none;
+    }
+`;
 export default function Calendar({ props }) {
     const router = useRouter();
     const [addEventOpen, setAddEventOpen] = useState(false);
@@ -75,17 +146,14 @@ export default function Calendar({ props }) {
         })
             .then((response) => response.json())
             .then((data) => {
-                if (data.statusCode === "200") {
-                    router.push("/timeTable");
-                } else if (data.statusCode === "500") {
-                    router.push("/timeTable");
-                }
+                router.push("/timetable");
             });
     };
     const preventDragHandler = (e) => {
         e.preventDefault();
         window.stop();
     };
+
     return (
         <div
             style={{
@@ -158,33 +226,39 @@ export default function Calendar({ props }) {
                     borderRadius: "10px ",
                 }}
             >
-                <FullCalendar
-                    plugins={[dayGridPlugin, timeGridPlugin, interactionPugin]}
-                    initialView={"dayGridMonth"}
-                    headerToolbar={{
-                        start: "prev,next",
-                        center: "title",
-                        end: "dayGridMonth, timeGridWeek, timeGridDay",
-                    }}
-                    height={"90vh"}
-                    events={parsedEvents}
-                    editable="false"
-                    eventDrop={handleMoveEvent}
-                    locale="en"
-                    eventOverlap={false}
-                    eventClick={({ event }) => {
-                        handleUpdateAndDeleteEventOpen();
-                        setEventId(event.id);
-                        setOnDate(event._def.extendedProps.date);
-                        setOnName(event._def.extendedProps.name);
-                        setOnDetail(event._def.extendedProps.detail);
-                    }}
-                    stickyHeaderDates="true"
-                    eventColor="#C1BAFD"
-                    eventTextColor="white"
-                    displayEventTime={false}
-                    eventDragMinDistance={1}
-                />
+                <StyleWrapper>
+                    <FullCalendar
+                        plugins={[
+                            dayGridPlugin,
+                            timeGridPlugin,
+                            interactionPugin,
+                        ]}
+                        initialView={"dayGridMonth"}
+                        headerToolbar={{
+                            start: "prev,next",
+                            center: "title",
+                            end: "dayGridMonth, timeGridWeek",
+                        }}
+                        height={"90vh"}
+                        events={parsedEvents}
+                        editable="false"
+                        eventDrop={handleMoveEvent}
+                        locale="en"
+                        eventOverlap={false}
+                        eventClick={({ event }) => {
+                            handleUpdateAndDeleteEventOpen();
+                            setEventId(event.id);
+                            setOnDate(event._def.extendedProps.date);
+                            setOnName(event._def.extendedProps.name);
+                            setOnDetail(event._def.extendedProps.detail);
+                        }}
+                        stickyHeaderDates="true"
+                        eventColor="#C1BAFD"
+                        eventTextColor="white"
+                        displayEventTime={false}
+                        eventDragMinDistance={1}
+                    />
+                </StyleWrapper>
             </div>
         </div>
     );

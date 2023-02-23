@@ -2,7 +2,7 @@ import Seo from "../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import MemberAccessCode from "../../db/schema/memberAccessCode";
 
 export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
@@ -10,6 +10,14 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
     const [userCode, setUserCode] = useState(
         JSON.parse(targetMemeberAccessCode).memberAccessCode
     );
+    const { data: session, status } = useSession();
+
+    useEffect(() => {
+        if (session?.user?.name !== "manager") {
+            router.push("/");
+        }
+    });
+
     const handleChangeCode = async (e) => {
         e.preventDefault();
         const changeForm = document.getElementById("change-form");
@@ -24,11 +32,13 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
-                    router.push("/");
+                    router.push("/member/changeAccessCode");
                 } else if (data.statusCode === "500") {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
                     router.push("/member/changeAccessCode");
+                } else {
+                    router.push("/notice");
                 }
             });
     };
@@ -91,17 +101,8 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
     );
 }
 
-export async function getServerSideProps(context) {
-    const session = await getSession(context);
-    if (session?.user?.name !== "manager") {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
+export async function getServerSideProps() {
     const response = await MemberAccessCode.findOne({});
     const targetMemeberAccessCode = JSON.stringify(response);
-    return { props: { session, targetMemeberAccessCode } };
+    return { props: { targetMemeberAccessCode } };
 }

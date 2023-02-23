@@ -9,7 +9,6 @@ export default NextAuth({
     providers: [
         CredentialsProvider({
             async authorize(credentials, req) {
-                // Add logic here to look up the user from the credentials supplied
                 const client = await MongoClient.connect(
                     process.env.NEXT_PUBLIC_MONGODB_URL,
                     { useNewUrlParser: true, useUnifiedTopology: true }

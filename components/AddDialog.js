@@ -29,8 +29,12 @@ export default function AddDialog(props) {
     };
 
     const compareTime = (modifiedStartTime, modifiedEndTime) => {
-        const startHour = Number(modifiedStartTime?.slice(0, 2));
-        const endHour = Number(modifiedEndTime?.slice(0, 2));
+        const startHour = Number(
+            modifiedStartTime?.slice(0, 2) + modifiedStartTime?.slice(3, 5)
+        );
+        const endHour = Number(
+            modifiedEndTime?.slice(0, 2) + modifiedEndTime?.slice(3, 5)
+        );
         if (startHour >= endHour) {
             return false;
         } else if (startHour < endHour) {
@@ -111,9 +115,29 @@ export default function AddDialog(props) {
 
     return (
         <div>
-            {/* <Button onClick={handleOpen}>Let's reserve</Button> */}
             <Dialog open={true} onClose={handleClose}>
-                <DialogTitle>동방 예약</DialogTitle>
+                <DialogTitle
+                    style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        position: "relative",
+                    }}
+                >
+                    <div>동방예약</div>
+                    <div>
+                        <Button
+                            variant="text"
+                            style={{
+                                position: "abolute",
+                                top: "0px",
+                                right: "0px",
+                            }}
+                            onClick={handleClose}
+                        >
+                            <h3>x</h3>
+                        </Button>
+                    </div>
+                </DialogTitle>
                 <DialogContent>
                     <DialogContentText style={{ marginBottom: "15px" }}>
                         {errorMessage}
@@ -150,7 +174,7 @@ export default function AddDialog(props) {
                                 <div style={{ marginBottom: "10px" }}>
                                     <TimePicker
                                         disablePast={true}
-                                        minutesStep={60}
+                                        minutesStep={30}
                                         label="시작 시간을 선택해주세요"
                                         value={startTime}
                                         views={["hours", "minutes"]}
@@ -169,7 +193,7 @@ export default function AddDialog(props) {
                                 <div style={{ marginBottom: "10px" }}>
                                     <TimePicker
                                         disablePast={true}
-                                        minutesStep={60}
+                                        minutesStep={30}
                                         label="종료 시간을 선택해주세요"
                                         value={endTime}
                                         views={["hours", "minutes"]}

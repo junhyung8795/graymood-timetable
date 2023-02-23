@@ -1,12 +1,18 @@
 import Seo from "../../components/Seo";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function AddNotice() {
     const router = useRouter();
     const [noticeDetail, setNoticeDetail] = useState("");
     const [noticeTitle, setNoticeTitle] = useState("");
+    const { data: session, status } = useSession();
+    useEffect(() => {
+        if (session?.user?.name !== "manager") {
+            router.push("/");
+        }
+    });
 
     const handleAddNotice = async (e) => {
         e.preventDefault();
@@ -25,6 +31,8 @@ export default function AddNotice() {
                     detailForm.value = "";
                     detailForm.placeholder = data.message;
                     router.push("/notice/addNotice");
+                } else {
+                    router.push("/notice");
                 }
             });
     };
@@ -86,17 +94,4 @@ export default function AddNotice() {
             </form>
         </div>
     );
-}
-
-export async function getServerSideProps(context) {
-    const session = await getSession(context);
-    if (session?.user?.name !== "manager") {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
-    return { props: { session } };
 }

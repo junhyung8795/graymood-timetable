@@ -1,7 +1,7 @@
 import Seo from "../../../components/Seo";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Notice from "../../../db/schema/notice";
 
 export default function ChangeNotice({ targetNotice }) {
@@ -12,6 +12,13 @@ export default function ChangeNotice({ targetNotice }) {
     const [noticeTitle, setNoticeTitle] = useState(
         JSON.parse(targetNotice).title
     );
+
+    const { data: session, status } = useSession();
+    useEffect(() => {
+        if (session?.user?.name !== "manager") {
+            router.push("/");
+        }
+    });
     const handleChangeNotice = async (e) => {
         e.preventDefault();
         const _id = String(router.query._id);
@@ -30,6 +37,8 @@ export default function ChangeNotice({ targetNotice }) {
                     detailForm.value = "";
                     detailForm.placeholder = data.message;
                     router.push(`/notice/changeNotice/${_id}`);
+                } else {
+                    router.push("/notice");
                 }
             });
     };
@@ -95,17 +104,8 @@ export default function ChangeNotice({ targetNotice }) {
 }
 
 export async function getServerSideProps(context) {
-    const session = await getSession(context);
-    if (session?.user?.name !== "manager") {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
     const response = await Notice.findById(context.query._id);
     const targetNotice = JSON.stringify(response);
 
-    return { props: { session, targetNotice } };
+    return { props: { targetNotice } };
 }

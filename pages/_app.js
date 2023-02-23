@@ -1,6 +1,5 @@
 import { SessionProvider } from "next-auth/react";
 import "../styles/reset.css";
-import "../styles/calendar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 

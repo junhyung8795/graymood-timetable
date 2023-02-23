@@ -9,8 +9,8 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@emotion/react": "^11.10.5",
-        "@emotion/styled": "^11.10.5",
+        "@emotion/react": "^11.10.6",
+        "@emotion/styled": "^11.10.6",
         "@fullcalendar/core": "^6.0.3",
         "@fullcalendar/daygrid": "^6.0.3",
         "@fullcalendar/interaction": "^6.0.3",

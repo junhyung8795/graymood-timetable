@@ -1,13 +1,20 @@
 import Seo from "../components/Seo";
+import React, { useEffect } from "react";
+
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Calendar from "../components/Calendar";
 import Event from "../db/schema/event";
 
-export default function TimeTable({ session, events }) {
+export default function TimeTable({ events }) {
     const router = useRouter();
-
+    const { data: session, status } = useSession();
+    useEffect(() => {
+        if (!session) {
+            router.push("/");
+        }
+    });
     return (
         <div>
             <Seo title="Timetable" />
@@ -16,21 +23,12 @@ export default function TimeTable({ session, events }) {
     );
 }
 
-export async function getServerSideProps(context) {
-    const session = await getSession(context);
+export async function getServerSideProps() {
     const eventArray = await Event.find({});
     const events = eventArray.map((doc) => {
         const item = doc.toObject();
         item._id = item._id.toString();
         return item;
     });
-    if (!session) {
-        return {
-            redirect: {
-                destination: "/",
-                permanent: false,
-            },
-        };
-    }
-    return { props: { session, events } };
+    return { props: { events } };
 }
