@@ -42,6 +42,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
                     router.push("/notice");
                 }
             });
+        return;
     };
     return (
         <div

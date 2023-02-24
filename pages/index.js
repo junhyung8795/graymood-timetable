@@ -29,6 +29,7 @@ export default function Home() {
         } else {
             router.push("/notice");
         }
+        return;
     };
 
     return (

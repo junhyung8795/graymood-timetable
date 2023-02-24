@@ -42,6 +42,7 @@ export default function ChangeNotice({ targetNotice }) {
                     router.push("/notice");
                 }
             });
+        return;
     };
     return (
         <div

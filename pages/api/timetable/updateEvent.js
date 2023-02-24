@@ -9,17 +9,17 @@ export default async function updateEvent(req, res) {
             const startTime = req.body.modifiedStartTime;
             const endTime = req.body.modifiedEndTime;
             const id = req.body.id;
-            const testAlreadyExis = await Event.exists({
-                date,
-                startTime,
-                endTime,
-            });
-            if (testAlreadyExis) {
-                return res.status(200).json({
-                    statusCode: "200",
-                    message: "예약 시간이 겹칩니다.",
-                });
-            }
+            // const testAlreadyExis = await Event.exists({
+            //     date,
+            //     startTime,
+            //     endTime,
+            // });
+            // if (testAlreadyExis) {
+            //     return res.status(200).json({
+            //         statusCode: "200",
+            //         message: "예약 시간이 겹칩니다.",
+            //     });
+            // }
             await Event.findByIdAndUpdate(id, {
                 date,
                 startTime,

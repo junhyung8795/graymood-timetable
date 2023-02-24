@@ -41,6 +41,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                     router.push("/notice");
                 }
             });
+        return;
     };
     return (
         <div

@@ -37,6 +37,7 @@ export default function NoticePage({ notice }) {
                     window.location.reload(true);
                 }
             });
+        return;
     };
     return (
         <div

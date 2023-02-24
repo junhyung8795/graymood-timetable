@@ -36,6 +36,7 @@ export default function AddNotice() {
                     router.push("/notice");
                 }
             });
+        return;
     };
     return (
         <div
