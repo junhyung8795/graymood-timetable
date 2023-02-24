@@ -19,7 +19,7 @@ export default function ChangeNotice({ targetNotice }) {
             router.push("/");
         }
         return;
-    });
+    }, []);
     const handleChangeNotice = async (e) => {
         e.preventDefault();
         const _id = String(router.query._id);

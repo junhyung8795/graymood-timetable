@@ -15,7 +15,7 @@ export default function NoticePage({ notice }) {
             router.push("/");
         }
         return;
-    });
+    }, []);
 
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });

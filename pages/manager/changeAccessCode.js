@@ -17,7 +17,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
             router.push("/");
         }
         return;
-    });
+    }, []);
 
     const handleChangeCode = async (e) => {
         e.preventDefault();

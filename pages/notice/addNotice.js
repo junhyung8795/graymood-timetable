@@ -13,7 +13,7 @@ export default function AddNotice() {
             router.push("/");
         }
         return;
-    });
+    }, []);
 
     const handleAddNotice = async (e) => {
         e.preventDefault();

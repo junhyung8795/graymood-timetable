@@ -15,7 +15,7 @@ export default function Home() {
             router.push("/notice");
         }
         return;
-    });
+    }, []);
 
     const handleUserLogin = async (e) => {
         e.preventDefault();

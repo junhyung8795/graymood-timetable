@@ -17,7 +17,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
             router.push("/");
         }
         return;
-    });
+    }, []);
 
     const handleChangeCode = async (e) => {
         e.preventDefault();
