@@ -12,6 +12,7 @@ export default function AddNotice() {
         if (session?.user?.name !== "manager") {
             router.push("/");
         }
+        return;
     });
 
     const handleAddNotice = async (e) => {

@@ -14,6 +14,7 @@ export default function NoticePage({ notice }) {
         if (!session) {
             router.push("/");
         }
+        return;
     });
 
     const handleLogout = (e) => {

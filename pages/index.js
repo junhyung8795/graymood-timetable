@@ -14,6 +14,7 @@ export default function Home() {
         if (session) {
             router.push("/notice");
         }
+        return;
     });
 
     const handleUserLogin = async (e) => {
@@ -96,14 +97,5 @@ export default function Home() {
 
 export async function getServerSideProps() {
     await dbConnect();
-    // const session = await getSession(context);
-    // if (session) {
-    //     return {
-    //         redirect: {
-    //             destination: "/notice",
-    //             permanent: false,
-    //         },
-    //     };
-    // }
     return { props: {} };
 }

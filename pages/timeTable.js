@@ -14,6 +14,7 @@ export default function TimeTable({ events }) {
         if (!session) {
             router.push("/");
         }
+        return;
     });
     return (
         <div>

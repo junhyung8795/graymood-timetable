@@ -18,6 +18,7 @@ export default function ChangeNotice({ targetNotice }) {
         if (session?.user?.name !== "manager") {
             router.push("/");
         }
+        return;
     });
     const handleChangeNotice = async (e) => {
         e.preventDefault();
