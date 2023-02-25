@@ -14,14 +14,18 @@ export default function ChangeNotice({ targetNotice }) {
     );
 
     const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (session?.user?.name !== "manager") {
             router.push("/");
         }
         return;
     }, []);
+
     const handleChangeNotice = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const _id = String(router.query._id);
         await fetch(`/api/notice/updateNotice`, {
             method: "POST",
@@ -42,6 +46,7 @@ export default function ChangeNotice({ targetNotice }) {
                     router.push("/notice");
                 }
             });
+        setLoading(false);
         return;
     };
     return (
@@ -55,8 +60,16 @@ export default function ChangeNotice({ targetNotice }) {
                 justifyContent: "center",
                 overflow: "scroll",
                 backgroundColor: "#111827",
+                position: "relative",
             }}
         >
+            {loading ? (
+                <div style={{ position: "absolute", top: "0px", right: "0px" }}>
+                    <h2>...loading</h2>
+                </div>
+            ) : (
+                <div></div>
+            )}
             <Seo title="Change Notice" />
 
             <div className="title">

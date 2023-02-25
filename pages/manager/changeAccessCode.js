@@ -11,6 +11,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
         JSON.parse(targetManagerAccessCode).managerAccessCode
     );
     const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (session?.user?.name !== "manager") {
@@ -21,6 +22,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
 
     const handleChangeCode = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const changeForm = document.getElementById("change-form");
         const response = await fetch("/api/manager/changeAccessCode", {
             method: "POST",
@@ -32,7 +34,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
-                    router.push("/");
+                    router.push("/notice");
                 } else if (data.statusCode === "500") {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
@@ -41,6 +43,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                     router.push("/notice");
                 }
             });
+        setLoading(false);
         return;
     };
     return (
@@ -54,8 +57,16 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                 justifyContent: "center",
                 overflow: "scroll",
                 backgroundColor: "#111827",
+                position: "relative",
             }}
         >
+            {loading ? (
+                <div style={{ position: "absolute", top: "0px", right: "0px" }}>
+                    <h2>...loading</h2>
+                </div>
+            ) : (
+                <div></div>
+            )}
             <Seo title="Change Manager Code" />
             <div className="title">
                 <h1>Graymood Timetable</h1>

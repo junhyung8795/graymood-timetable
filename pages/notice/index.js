@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import Notice from "../../db/schema/notice";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function NoticePage({ notice }) {
     const router = useRouter();
     const { data: session, status } = useSession();
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (!session) {
             router.push("/");
@@ -22,6 +22,7 @@ export default function NoticePage({ notice }) {
     };
 
     const handleDeleteNotice = async (e) => {
+        setLoading(true);
         await fetch("/api/notice/deleteNotice", {
             method: "DELETE",
             headers: {
@@ -37,6 +38,7 @@ export default function NoticePage({ notice }) {
                     window.location.reload(true);
                 }
             });
+        setLoading(false);
         return;
     };
     return (
@@ -51,8 +53,16 @@ export default function NoticePage({ notice }) {
                 padding: "10px 10px",
                 overflow: "scroll",
                 color: "white",
+                position: "relative",
             }}
         >
+            {loading ? (
+                <div style={{ position: "absolute", top: "0px", right: "0px" }}>
+                    <h2>...loading</h2>
+                </div>
+            ) : (
+                <div></div>
+            )}
             <Seo title="Notice" />
             <div>
                 <h1>동방 사용 필독 사항</h1>
@@ -65,20 +75,20 @@ export default function NoticePage({ notice }) {
                     }}
                 >
                     <div>
-                        <Link
-                            href="/timeTable"
+                        <button
+                            type="button"
+                            className="btn btn-outline-light"
+                            onClick={async () => {
+                                setLoading(true);
+                                await router.push("/timeTable");
+                                setLoading(false);
+                            }}
                             style={{
-                                textDecoration: "none",
-                                color: "white",
+                                color: "blue",
                             }}
                         >
-                            <button
-                                type="button"
-                                className="btn btn-outline-light"
-                            >
-                                동방 시간표
-                            </button>
-                        </Link>
+                            동방 시간표
+                        </button>
                     </div>
                     <button
                         type="button"
@@ -135,21 +145,24 @@ export default function NoticePage({ notice }) {
                                                 justifyContent: "flex-end",
                                             }}
                                         >
-                                            <Link
-                                                href={`/notice/updateNotice/${item._id}`}
+                                            <button
+                                                type="button"
+                                                className="btn btn-warning"
+                                                onClick={async () => {
+                                                    setLoading(true);
+                                                    await router.push(
+                                                        `/notice/updateNotice/${item._id}`
+                                                    );
+                                                    setLoading(false);
+                                                }}
                                                 style={{
-                                                    textDecoration: "none",
                                                     color: "black",
                                                     marginRight: "10px",
                                                 }}
                                             >
-                                                <button
-                                                    type="button"
-                                                    className="btn btn-warning"
-                                                >
-                                                    공지사항 변경
-                                                </button>
-                                            </Link>
+                                                공지사항 변경
+                                            </button>
+
                                             <button
                                                 type="button"
                                                 className="btn btn-danger"
@@ -170,55 +183,57 @@ export default function NoticePage({ notice }) {
                 {session?.user.name === "manager" ? (
                     <div>
                         <div>
-                            <Link
-                                href="/manager/changeAccessCode"
+                            <button
+                                type="button"
+                                className="btn btn-warning"
+                                onClick={async () => {
+                                    setLoading(true);
+                                    await router.push(
+                                        "/manager/changeAccessCode"
+                                    );
+                                    setLoading(false);
+                                }}
                                 style={{
-                                    textDecoration: "none",
+                                    marginBottom: "10px",
                                     color: "black",
                                 }}
                             >
-                                <button
-                                    type="button"
-                                    className="btn btn-warning"
-                                    style={{ marginBottom: "10px" }}
-                                >
-                                    관리자 접속코드 변경
-                                </button>
-                            </Link>
+                                관리자 접속코드 변경
+                            </button>
                         </div>
                         <div>
-                            <Link
-                                href="/member/changeAccessCode"
+                            <button
+                                type="button"
+                                className="btn btn-warning"
+                                onClick={async () => {
+                                    setLoading(true);
+                                    router.push("/member/changeAccessCode");
+                                    setLoading(false);
+                                }}
                                 style={{
-                                    textDecoration: "none",
+                                    marginBottom: "10px",
                                     color: "black",
                                 }}
                             >
-                                <button
-                                    type="button"
-                                    className="btn btn-warning"
-                                    style={{ marginBottom: "10px" }}
-                                >
-                                    동아리원 접속코드 변경
-                                </button>
-                            </Link>
+                                동아리원 접속코드 변경
+                            </button>
                         </div>
                         <div>
-                            <Link
-                                href="/notice/addNotice"
+                            <button
+                                type="button"
+                                className="btn btn-warning"
+                                onClick={async () => {
+                                    setLoading(true);
+                                    router.push("/notice/addNotice");
+                                    setLoading(false);
+                                }}
                                 style={{
-                                    textDecoration: "none",
+                                    marginBottom: "10px",
                                     color: "black",
                                 }}
                             >
-                                <button
-                                    type="button"
-                                    className="btn btn-warning"
-                                    style={{ marginBottom: "10px" }}
-                                >
-                                    동방사용 필독사항 추가
-                                </button>
-                            </Link>
+                                동방사용 필독사항 추가
+                            </button>
                         </div>
                     </div>
                 ) : (

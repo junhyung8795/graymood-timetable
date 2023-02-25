@@ -11,6 +11,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
         JSON.parse(targetMemeberAccessCode).memberAccessCode
     );
     const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (session?.user?.name !== "manager") {
@@ -21,6 +22,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
 
     const handleChangeCode = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const changeForm = document.getElementById("change-form");
 
         await fetch("/api/member/changeAccessCode", {
@@ -33,7 +35,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
-                    router.push("/member/changeAccessCode");
+                    router.push("/notice");
                 } else if (data.statusCode === "500") {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
@@ -42,6 +44,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
                     router.push("/notice");
                 }
             });
+        setLoading(false);
         return;
     };
     return (
@@ -55,8 +58,16 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
                 justifyContent: "center",
                 overflow: "scroll",
                 backgroundColor: "#111827",
+                position: "relative",
             }}
         >
+            {loading ? (
+                <div style={{ position: "absolute", top: "0px", right: "0px" }}>
+                    <h2>...loading</h2>
+                </div>
+            ) : (
+                <div></div>
+            )}
             <Seo title="Change Member Code" />
             <div className="title">
                 <h1>Graymood Timetable</h1>

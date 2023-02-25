@@ -89,7 +89,7 @@ export default function Calendar({ props }) {
     const [onDate, setOnDate] = useState("");
     const [onName, setOnName] = useState("");
     const [onDetail, setOnDetail] = useState("");
-
+    const [loading, setLoading] = useState(false);
     const parsedEvents = props.map((doc) => {
         const title = `${doc.name}  ${doc.detail}`;
         const start = `${doc.date}T${doc.startTime}`;
@@ -129,6 +129,7 @@ export default function Calendar({ props }) {
             .replace(/-/g, "-");
     };
     const handleMoveEvent = async ({ event }) => {
+        setLoading(true);
         const date = dateModifier(event.start);
         const startTime = timeModifier(event.start);
         const endTime = timeModifier(event.end);
@@ -149,6 +150,7 @@ export default function Calendar({ props }) {
             .then((data) => {
                 router.push("/timeTable");
             });
+        setLoading(false);
     };
     const preventDragHandler = (e) => {
         e.preventDefault();
@@ -157,12 +159,25 @@ export default function Calendar({ props }) {
 
     return (
         <div className="body" onDragStart={preventDragHandler}>
+            {loading ? (
+                <div className="loading">
+                    <h3>...loading</h3>
+                </div>
+            ) : (
+                <div></div>
+            )}
             <nav className="navbar bg-body-tertiary">
-                <Link href="/notice" className="toNoticeLink">
-                    <button type="button" className="btn btn-outline-light">
-                        동방사용필독사항
-                    </button>
-                </Link>
+                <button
+                    type="button"
+                    onClick={async () => {
+                        setLoading(true);
+                        router.push("/notice");
+                        setLoading(false);
+                    }}
+                    className="btn btn-outline-light toNoticeLink"
+                >
+                    동방사용필독사항
+                </button>
                 <div>
                     <button
                         type="button"
@@ -242,6 +257,12 @@ export default function Calendar({ props }) {
                     overflow: scroll;
                     position: relative;
                 }
+                .loading {
+                    position: absolute;
+                    top: 0px;
+                    right: 0px;
+                    color: white;
+                }
                 .navbar {
                     display: flex;
                     justify-content: space-between;
@@ -250,8 +271,7 @@ export default function Calendar({ props }) {
                     margin-bottom: 20px;
                 }
                 .toNoticeLink {
-                    text-decoration: none;
-                    color: white;
+                    color: blue;
                 }
                 .calendarBody {
                     background-color: #1f2937;

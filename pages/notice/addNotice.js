@@ -8,6 +8,7 @@ export default function AddNotice() {
     const [noticeDetail, setNoticeDetail] = useState("");
     const [noticeTitle, setNoticeTitle] = useState("");
     const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         if (session?.user?.name !== "manager") {
             router.push("/");
@@ -17,6 +18,7 @@ export default function AddNotice() {
 
     const handleAddNotice = async (e) => {
         e.preventDefault();
+        setLoading(true);
         await fetch(`/api/notice/addNotice`, {
             method: "POST",
             headers: {
@@ -36,6 +38,7 @@ export default function AddNotice() {
                     router.push("/notice");
                 }
             });
+        setLoading(false);
         return;
     };
     return (
@@ -49,8 +52,16 @@ export default function AddNotice() {
                 justifyContent: "center",
                 overflow: "scroll",
                 backgroundColor: "#111827",
+                position: "relative",
             }}
         >
+            {loading ? (
+                <div style={{ position: "absolute", top: "0px", right: "0px" }}>
+                    <h2>...loading</h2>
+                </div>
+            ) : (
+                <div></div>
+            )}
             <Seo title="Add Notice" />
 
             <div className="title">
