@@ -2,7 +2,6 @@ import Seo from "../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
-import Link from "next/link";
 import Notice from "../../db/schema/notice";
 import React, { useEffect, useState } from "react";
 
@@ -15,7 +14,7 @@ export default function NoticePage({ notice }) {
             router.push("/");
         }
         return;
-    }, []);
+    }, [router, session]);
 
     const handleLogout = (e) => {
         signOut({ callbackUrl: "/" });

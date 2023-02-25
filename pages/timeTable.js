@@ -15,7 +15,7 @@ export default function TimeTable({ events }) {
             router.push("/");
         }
         return;
-    }, []);
+    }, [router, session]);
     return (
         <div>
             <Seo title="Timetable" />

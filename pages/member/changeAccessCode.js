@@ -18,7 +18,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
             router.push("/");
         }
         return;
-    }, []);
+    }, [router, session?.user?.name]);
 
     const handleChangeCode = async (e) => {
         e.preventDefault();

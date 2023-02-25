@@ -21,7 +21,7 @@ export default function ChangeNotice({ targetNotice }) {
             router.push("/");
         }
         return;
-    }, []);
+    }, [router, session?.user?.name]);
 
     const handleChangeNotice = async (e) => {
         e.preventDefault();

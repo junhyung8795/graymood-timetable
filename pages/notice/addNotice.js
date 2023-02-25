@@ -14,7 +14,7 @@ export default function AddNotice() {
             router.push("/");
         }
         return;
-    }, []);
+    }, [router, session?.user?.name]);
 
     const handleAddNotice = async (e) => {
         e.preventDefault();

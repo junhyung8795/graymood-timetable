@@ -16,7 +16,7 @@ export default function Home() {
             router.push("/notice");
         }
         return;
-    }, []);
+    }, [router, session]);
 
     const handleUserLogin = async (e) => {
         e.preventDefault();
@@ -28,6 +28,7 @@ export default function Home() {
         if (response.error) {
             e.target.firstElementChild.value = "";
             e.target.firstElementChild.placeholder = "Wrong Code";
+            router.push("/");
         } else {
             router.push("/notice");
         }
