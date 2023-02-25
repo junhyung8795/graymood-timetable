@@ -147,7 +147,7 @@ export default function Calendar({ props }) {
         })
             .then((response) => response.json())
             .then((data) => {
-                router.push("/timetable");
+                router.push("/timeTable");
             });
     };
     const preventDragHandler = (e) => {
@@ -156,32 +156,16 @@ export default function Calendar({ props }) {
     };
 
     return (
-        <div
-            style={{
-                backgroundColor: "#111827",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                height: "110vh",
-                width: "100vw",
-                overflow: "scroll",
-            }}
-            onDragStart={preventDragHandler}
-        >
-            <nav
-                className="navbar bg-body-tertiary"
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    width: "95%",
-                    marginTop: "20px",
-                    marginBottom: "20px",
-                }}
-            >
-                <Link
-                    href="/notice"
-                    style={{ textDecoration: "none", color: "white" }}
-                >
+        <div className="body" onDragStart={preventDragHandler}>
+            {loading ? (
+                <div className="loading">
+                    <h2>...loading</h2>
+                </div>
+            ) : (
+                <div></div>
+            )}
+            <nav className="navbar bg-body-tertiary">
+                <Link href="/notice" className="toNoticeLink">
                     <button type="button" className="btn btn-outline-light">
                         동방사용필독사항
                     </button>
@@ -219,14 +203,7 @@ export default function Calendar({ props }) {
                 <div></div>
             )}
 
-            <div
-                style={{
-                    backgroundColor: "#1F2937",
-                    color: "white",
-                    width: "100%",
-                    borderRadius: "10px ",
-                }}
-            >
+            <div className="calendarBody">
                 <StyleWrapper>
                     <FullCalendar
                         plugins={[
@@ -261,6 +238,35 @@ export default function Calendar({ props }) {
                     />
                 </StyleWrapper>
             </div>
+            <style jsx>{`
+                .body {
+                    background-color: #111827;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    height: 110vh;
+                    width: 100vw;
+                    overflow: scroll;
+                    position: relative;
+                }
+                .navbar {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 95%;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+                .toNoticeLink {
+                    text-decoration: none;
+                    color: white;
+                }
+                .calendarBody {
+                    background-color: #1f2937;
+                    color: white;
+                    width: 100%;
+                    border-radius: 10px;
+                }
+            `}</style>
         </div>
     );
 }

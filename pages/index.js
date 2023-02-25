@@ -9,6 +9,7 @@ export default function Home() {
     const router = useRouter();
     const [userCode, setUserCode] = useState("");
     const { data: session, status } = useSession();
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (session) {
@@ -19,6 +20,7 @@ export default function Home() {
 
     const handleUserLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
         const response = await signIn("credentials", {
             redirect: false,
             password: userCode,
@@ -29,11 +31,19 @@ export default function Home() {
         } else {
             router.push("/notice");
         }
+        setLoading(false);
         return;
     };
 
     return (
         <div className="body">
+            {loading ? (
+                <div className="loading">
+                    <h2>...loading</h2>
+                </div>
+            ) : (
+                <div></div>
+            )}
             <Seo title="Home" />
             <div className="title">
                 <h1>Graymood Timetable</h1>
@@ -78,9 +88,13 @@ export default function Home() {
                         justify-content: center;
                         background-color: #111827;
                         overflow: scroll;
-                    }
-                    .title {
                         color: white;
+                        position: relative;
+                    }
+                    .loading {
+                        position: absolute;
+                        top: 0px;
+                        right: 0px;
                     }
                     .loginForm {
                         display: flex;
