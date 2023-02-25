@@ -157,13 +157,6 @@ export default function Calendar({ props }) {
 
     return (
         <div className="body" onDragStart={preventDragHandler}>
-            {loading ? (
-                <div className="loading">
-                    <h2>...loading</h2>
-                </div>
-            ) : (
-                <div></div>
-            )}
             <nav className="navbar bg-body-tertiary">
                 <Link href="/notice" className="toNoticeLink">
                     <button type="button" className="btn btn-outline-light">
