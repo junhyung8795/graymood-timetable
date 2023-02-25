@@ -26,7 +26,8 @@ export const StyleWrapper = styled.div`
         height: 90px;
     }
     .fc-toolbar-title {
-        font-size: 9px;
+        font-size: 12px;
+        font-weight: 800;
     }
     .fc-toolbar-chunk:nth-of-type(1) {
         display: block;
