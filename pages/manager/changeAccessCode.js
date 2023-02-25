@@ -1,6 +1,6 @@
 import Seo from "../../components/Seo";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import ManagerAccessCode from "../../db/schema/managerAccessCode";
