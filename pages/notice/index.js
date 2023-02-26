@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useSession, signOut } from "next-auth/react";
 import Notice from "../../db/schema/notice";
 import React, { useEffect, useState } from "react";
+import dbConnect from "../../db/dbConnect";
 
 export default function NoticePage({ notice }) {
     const router = useRouter();
@@ -244,6 +245,8 @@ export default function NoticePage({ notice }) {
 }
 
 export async function getServerSideProps() {
+    await dbConnect();
+
     const noticeArray = await Notice.find({});
     const notice = noticeArray.map((doc) => {
         const item = doc.toObject();
