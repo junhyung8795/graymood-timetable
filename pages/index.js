@@ -1,7 +1,6 @@
 import Seo from "../components/Seo";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import dbConnect from "../db/dbConnect";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
@@ -112,6 +111,5 @@ export default function Home() {
 }
 
 export async function getServerSideProps() {
-    await dbConnect();
     return { props: {} };
 }

@@ -1,6 +1,5 @@
 import Seo from "../components/Seo";
 import React, { useEffect } from "react";
-
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import "bootstrap/dist/css/bootstrap.min.css";

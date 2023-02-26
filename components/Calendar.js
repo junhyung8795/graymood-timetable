@@ -6,10 +6,9 @@ import interactionPugin from "@fullcalendar/interaction";
 import { useRouter } from "next/router";
 import AddDialog from "./AddDialog";
 import UpdateAndDeleteDialog from "./UpdateAndDeleteDialog";
-import Link from "next/link";
 import styled from "@emotion/styled";
 
-export const StyleWrapper = styled.div`
+const StyleWrapper = styled.div`
     .fc .fc-timegrid-slot-minor {
         border-top-style: none;
     }
