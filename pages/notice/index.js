@@ -134,7 +134,7 @@ export default function NoticePage({ notice }) {
                                         style={{ whiteSpace: "pre-line" }}
                                         className="mb-3"
                                     >
-                                        <h1 style={{ fontSize: "16px" }}>
+                                        <h1 style={{ fontSize: "15px" }}>
                                             {item.detail}
                                         </h1>
                                     </div>
