@@ -8,6 +8,7 @@ export default async function addEvent(req, res) {
             const date = req.body.date;
             const startTime = req.body.modifiedStartTime;
             const endTime = req.body.modifiedEndTime;
+            const password = req.body.password;
             const testAlreadyExist = await Event.exists({
                 date,
                 startTime,
@@ -25,6 +26,7 @@ export default async function addEvent(req, res) {
                 date,
                 startTime,
                 endTime,
+                password,
             });
             return res.status(200).json({
                 statusCode: "200",

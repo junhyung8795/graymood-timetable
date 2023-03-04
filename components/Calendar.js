@@ -86,9 +86,13 @@ export default function Calendar({ props }) {
         useState(false);
     const [eventId, setEventId] = useState("");
     const [onDate, setOnDate] = useState("");
+    const [onStartTime, setOnStartTime] = useState("");
+    const [onEndTime, setOnEndTime] = useState("");
     const [onName, setOnName] = useState("");
     const [onDetail, setOnDetail] = useState("");
     const [loading, setLoading] = useState(false);
+    const [onPassword, setOnPassword] = useState("");
+
     const parsedEvents = props.map((doc) => {
         const title = `${doc.name}  ${doc.detail}`;
         const start = `${doc.date}T${doc.startTime}`;
@@ -105,6 +109,7 @@ export default function Calendar({ props }) {
                 startTime: doc.startTime,
                 endTime: doc.endTime,
                 date: doc.date,
+                password: doc.password,
             },
         };
     });
@@ -204,6 +209,9 @@ export default function Calendar({ props }) {
                         date={onDate}
                         name={onName}
                         detail={onDetail}
+                        password={onPassword}
+                        startTime={onStartTime}
+                        endTime={onEndTime}
                     />
                 </div>
             ) : (
@@ -236,6 +244,9 @@ export default function Calendar({ props }) {
                             setOnDate(event._def.extendedProps.date);
                             setOnName(event._def.extendedProps.name);
                             setOnDetail(event._def.extendedProps.detail);
+                            setOnPassword(event._def.extendedProps.password);
+                            setOnStartTime(event._def.extendedProps.startTime);
+                            setOnEndTime(event._def.extendedProps.endTime);
                         }}
                         stickyHeaderDates="true"
                         eventColor="#C1BAFD"

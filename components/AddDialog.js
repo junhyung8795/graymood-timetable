@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,10 +8,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import TextField from "@mui/material/TextField";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
+import { TimePicker } from "antd";
+import dayjs from "dayjs";
 
 export default function AddDialog(props) {
     const router = useRouter();
@@ -22,22 +23,54 @@ export default function AddDialog(props) {
     const [modifiedEndTime, setModifiedEndTime] = useState(null);
     const [name, setName] = useState("");
     const [detail, setDetail] = useState("");
+    const [password, setPassword] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+    const format = "HH:mm";
+
+    useEffect(() => {
+        const startHour = Number(modifiedStartTime?.slice(0, 2));
+        const autoEndHour = String(startHour + 2).padStart(2, "0");
+        const d = startTime?.$d;
+        if (d) {
+            const offsetAppliedDate =
+                d.getTime() - d.getTimezoneOffset() * 60000;
+            const frontPart = new Date(offsetAppliedDate)
+                .toISOString()
+                .slice(0, 11);
+            const backPart = new Date(offsetAppliedDate)
+                .toISOString()
+                .slice(13, 24);
+            const complete = dayjs(frontPart + autoEndHour + backPart).subtract(
+                9,
+                "hour"
+            );
+            const twentyThree = dayjs(frontPart + "23" + backPart)
+                .subtract(9, "hour")
+                .set("minute", 59);
+            if (startHour + 2 < 24) {
+                setEndTime(complete);
+                setModifiedEndTime(timeModifier(complete.$d));
+            } else if (startHour + 2 >= 24) {
+                setEndTime(twentyThree);
+                setModifiedEndTime(timeModifier(twentyThree.$d));
+            }
+        }
+    }, [startTime]);
 
     const handleClose = () => {
         props.setAddEventOpen(false);
     };
 
     const compareTime = (modifiedStartTime, modifiedEndTime) => {
-        const startHour = Number(
+        const startNum = Number(
             modifiedStartTime?.slice(0, 2) + modifiedStartTime?.slice(3, 5)
         );
-        const endHour = Number(
+        const endNum = Number(
             modifiedEndTime?.slice(0, 2) + modifiedEndTime?.slice(3, 5)
         );
-        if (startHour >= endHour) {
+        if (startNum >= endNum) {
             return false;
-        } else if (startHour < endHour) {
+        } else if (startNum < endNum) {
             return true;
         }
     };
@@ -88,6 +121,7 @@ export default function AddDialog(props) {
                 date,
                 modifiedStartTime,
                 modifiedEndTime,
+                password,
             }),
         })
             .then((response) => response.json())
@@ -99,18 +133,17 @@ export default function AddDialog(props) {
                 }
             });
     };
+
     const dateModifier = (d) => {
         return new Date(d.getTime() - d.getTimezoneOffset() * 60000)
             .toISOString()
-            .slice(0, 10)
-            .replace(/-/g, "-");
+            .slice(0, 10);
     };
 
     const timeModifier = (d) => {
         return new Date(d.getTime() - d.getTimezoneOffset() * 60000)
             .toISOString()
-            .slice(11, 16)
-            .replace(/-/g, "-");
+            .slice(11, 16);
     };
 
     return (
@@ -120,7 +153,6 @@ export default function AddDialog(props) {
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        position: "relative",
                     }}
                 >
                     <div>동방예약</div>
@@ -171,40 +203,48 @@ export default function AddDialog(props) {
                                     marginBottom: "15px",
                                 }}
                             >
+                                <div style={{ fontSize: "13px" }}>
+                                    시작시간을 선택해주세요
+                                </div>
                                 <div style={{ marginBottom: "10px" }}>
                                     <TimePicker
-                                        disablePast={true}
-                                        minutesStep={30}
-                                        label="시작 시간을 선택해주세요"
+                                        use12Hours
+                                        format={format}
+                                        getPopupContainer={(trigger) => {
+                                            return trigger.firstChild;
+                                        }}
+                                        showNow={false}
+                                        minuteStep={30}
                                         value={startTime}
-                                        views={["hours", "minutes"]}
-                                        onChange={(newValue) => {
+                                        onSelect={(newValue) => {
                                             const d = newValue.$d;
                                             setModifiedStartTime(
                                                 timeModifier(d)
                                             );
                                             setStartTime(newValue);
                                         }}
-                                        renderInput={(params) => (
-                                            <TextField {...params} />
-                                        )}
+                                        placement="topLeft"
                                     />
                                 </div>
                                 <div style={{ marginBottom: "10px" }}>
+                                    <div style={{ fontSize: "13px" }}>
+                                        종료시간을 선택해주세요
+                                    </div>
                                     <TimePicker
-                                        disablePast={true}
-                                        minutesStep={30}
-                                        label="종료 시간을 선택해주세요"
+                                        use12Hours
+                                        format={format}
+                                        getPopupContainer={(triggerNode) => {
+                                            return triggerNode.firstChild;
+                                        }}
+                                        showNow={false}
+                                        minuteStep={30}
                                         value={endTime}
-                                        views={["hours", "minutes"]}
-                                        onChange={(newValue) => {
+                                        onSelect={(newValue) => {
                                             const d = newValue.$d;
                                             setModifiedEndTime(timeModifier(d));
                                             setEndTime(newValue);
                                         }}
-                                        renderInput={(params) => (
-                                            <TextField {...params} />
-                                        )}
+                                        placement="topLeft"
                                     />
                                 </div>
                             </div>
@@ -222,6 +262,18 @@ export default function AddDialog(props) {
                             type="text"
                             placeholder="용무"
                             onChange={({ target }) => setDetail(target.value)}
+                            style={{
+                                marginBottom: "8px",
+                            }}
+                            required
+                        />
+                        <Input
+                            type="text"
+                            placeholder="비밀번호"
+                            value={password}
+                            onChange={({ target }) => {
+                                setPassword(target.value);
+                            }}
                             required
                         />
                         <div
@@ -236,6 +288,7 @@ export default function AddDialog(props) {
                                 style={{
                                     marginTop: "8px",
                                     width: "100px",
+                                    marginBottom: "57px",
                                 }}
                             >
                                 예약

@@ -6,6 +6,7 @@ const EventSchema = new mongoose.Schema({
     date: { type: String, required: true },
     startTime: { type: String, required: true },
     endTime: { type: String, required: true },
+    password: { type: String, required: true },
 });
 
 const Event = mongoose.models.Event || mongoose.model("Event", EventSchema);
