@@ -33,7 +33,7 @@ export default function UpdateAndDeleteDialog(props) {
         if (session?.user?.name === "manager") {
             setEnableUpdate(true);
         }
-    }, []);
+    }, [session?.user?.name]);
 
     useEffect(() => {
         const startHour = Number(modifiedStartTime?.slice(0, 2));
@@ -63,7 +63,7 @@ export default function UpdateAndDeleteDialog(props) {
                 setModifiedEndTime(timeModifier(twentyThree.$d));
             }
         }
-    }, [startTime]);
+    }, [startTime, modifiedStartTime]);
 
     const handleClose = () => {
         props.setUpdateAndDeleteEventOpen(false);

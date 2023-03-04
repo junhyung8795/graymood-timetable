@@ -55,7 +55,7 @@ export default function AddDialog(props) {
                 setModifiedEndTime(timeModifier(twentyThree.$d));
             }
         }
-    }, [startTime]);
+    }, [startTime, modifiedStartTime]);
 
     const handleClose = () => {
         props.setAddEventOpen(false);
