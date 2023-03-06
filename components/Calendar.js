@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -92,6 +93,14 @@ export default function Calendar({ props }) {
     const [onDetail, setOnDetail] = useState("");
     const [loading, setLoading] = useState(false);
     const [onPassword, setOnPassword] = useState("");
+    const { data: session, status } = useSession();
+    const [eventEditable, setEventEditable] = useState(false);
+
+    useEffect(() => {
+        if (session?.user?.name == "manager") {
+            setEventEditable(true);
+        }
+    });
 
     const parsedEvents = props.map((doc) => {
         const title = `${doc.name}  ${doc.detail}`;
@@ -234,7 +243,7 @@ export default function Calendar({ props }) {
                         }}
                         height={"90vh"}
                         events={parsedEvents}
-                        editable="false"
+                        editable={eventEditable}
                         eventDrop={handleMoveEvent}
                         locale="en"
                         eventOverlap={false}
