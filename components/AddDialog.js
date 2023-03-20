@@ -98,8 +98,17 @@ export default function AddDialog(props) {
             return true;
         } else {
             const compareTest = compareTime(modifiedStartTime, modifiedEndTime);
+            const today = new Date();
+            const limitDay = today.getTime() + 7 * 24 * 60 * 60 * 1000;
+            const wantedDay = new Date(date).getTime();
             if (compareTest) {
-                return false;
+                if (wantedDay >= limitDay) {
+                    setErrorMessage("예약가능 날짜가 아닙니다.");
+                    setDate(null);
+                    return true;
+                } else {
+                    return false;
+                }
             } else if (!compareTest) {
                 setErrorMessage("예약 시간을 수정해주세요.");
                 setStartTime(null);
@@ -145,7 +154,15 @@ export default function AddDialog(props) {
             .toISOString()
             .slice(11, 16);
     };
-
+    const disableDate = (day) => {
+        const today = new Date();
+        const limitDay = today.getTime() + 6 * 24 * 60 * 60 * 1000;
+        if (day.$d.getTime() >= limitDay) {
+            return true;
+        } else {
+            return false;
+        }
+    };
     return (
         <div>
             <Dialog open={true} onClose={handleClose}>
@@ -196,6 +213,7 @@ export default function AddDialog(props) {
                                 renderInput={(params) => (
                                     <TextField {...params} />
                                 )}
+                                shouldDisableDate={disableDate}
                             />
                             <div
                                 style={{
