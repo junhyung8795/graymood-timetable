@@ -100,7 +100,7 @@ export default function Calendar({ props }) {
         if (session?.user?.name == "manager") {
             setEventEditable(true);
         }
-    }, [session.user.name]);
+    }, [session?.user?.name]);
 
     const parsedEvents = props.map((doc) => {
         const title = `${doc.name}  ${doc.detail}`;
