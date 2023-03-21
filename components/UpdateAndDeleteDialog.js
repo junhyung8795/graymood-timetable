@@ -8,7 +8,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
@@ -243,7 +243,7 @@ export default function UpdateAndDeleteDialog(props) {
                                 <LocalizationProvider
                                     dateAdapter={AdapterDayjs}
                                 >
-                                    <DatePicker
+                                    <DesktopDatePicker
                                         disablePast
                                         label="날짜를 선택해주세요"
                                         value={date}
