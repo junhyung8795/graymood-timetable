@@ -143,9 +143,12 @@ export default function UpdateAndDeleteDialog(props) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
+                    handleClose();
                     router.push("/timeTable");
+                } else if (data.statusCode === "201") {
+                    setErrorMessage(data.message);
                 } else if (data.statusCode === "500") {
-                    router.push("/timeTable");
+                    setErrorMessage(data.message);
                 }
             });
     };
@@ -171,8 +174,6 @@ export default function UpdateAndDeleteDialog(props) {
     };
     const handleTestPassword = (e) => {
         e.preventDefault();
-        console.log(password);
-        console.log(props.password);
         if (password == props.password) {
             return setEnableUpdate(true);
         }
@@ -190,13 +191,13 @@ export default function UpdateAndDeleteDialog(props) {
             .slice(11, 16);
     };
     const disableDate = (day) => {
-        // const today = new Date();
-        // const limitDay = today.getTime() + 6 * 24 * 60 * 60 * 1000;
-        // if (day.$d.getTime() >= limitDay) {
-        //     return true;
-        // } else {
-        //     return false;
-        // }
+        const today = new Date();
+        const limitDay = today.getTime() + 6 * 24 * 60 * 60 * 1000;
+        if (day.$d.getTime() >= limitDay) {
+            return true;
+        } else {
+            return false;
+        }
     };
 
     return (
@@ -236,7 +237,6 @@ export default function UpdateAndDeleteDialog(props) {
                                     const consequence = testError();
                                     if (!consequence) {
                                         handleUpdate();
-                                        handleClose();
                                     }
                                 }}
                             >
