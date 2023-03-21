@@ -5,9 +5,11 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPugin from "@fullcalendar/interaction";
 import { useRouter } from "next/router";
-import AddDialog from "./AddDialog";
-import UpdateAndDeleteDialog from "./UpdateAndDeleteDialog";
 import styled from "@emotion/styled";
+import dynamic from "next/dynamic";
+
+const AddDialog = dynamic(() => import("./AddDialog"));
+const UpdateAndDeleteDialog = dynamic(() => import("./UpdateAndDeleteDialog"));
 
 const StyleWrapper = styled.div`
     .fc .fc-timegrid-slot-minor {
