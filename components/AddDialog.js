@@ -7,7 +7,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import TextField from "@mui/material/TextField";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
@@ -136,9 +136,12 @@ export default function AddDialog(props) {
             .then((response) => response.json())
             .then((data) => {
                 if (data.statusCode === "200") {
+                    handleClose();
                     router.push("/timeTable");
+                } else if (data.statusCode === "201") {
+                    setErrorMessage(data.message);
                 } else if (data.statusCode === "500") {
-                    router.push("/timeTable");
+                    setErrorMessage(data.message);
                 }
             });
     };
@@ -197,12 +200,11 @@ export default function AddDialog(props) {
                             const consq = testError();
                             if (!consq) {
                                 handleReserve();
-                                handleClose();
                             }
                         }}
                     >
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
-                            <DatePicker
+                            <DesktopDatePicker
                                 disablePast
                                 label="날짜를 선택해주세요"
                                 value={date}

@@ -9,28 +9,58 @@ export default async function updateEvent(req, res) {
             const startTime = req.body.modifiedStartTime;
             const endTime = req.body.modifiedEndTime;
             const id = req.body.id;
-            // const testAlreadyExis = await Event.exists({
-            //     date,
-            //     startTime,
-            //     endTime,
-            // });
-            // if (testAlreadyExis) {
-            //     return res.status(200).json({
-            //         statusCode: "200",
-            //         message: "예약 시간이 겹칩니다.",
-            //     });
-            // }
-            await Event.findByIdAndUpdate(id, {
+            const startNum = Number(
+                startTime?.slice(0, 2) + startTime?.slice(3, 5)
+            );
+            const endNum = Number(endTime?.slice(0, 2) + endTime?.slice(3, 5));
+            const dayEvent = await Event.find({
                 date,
-                startTime,
-                endTime,
-                name,
-                detail,
             });
-            return res.status(200).json({
-                statusCode: "200",
-                message: "예약이 변경되었습니다.",
+            const otherReservation = dayEvent.filter((item) => {
+                if (String(item._id) === id) {
+                    return false;
+                } else {
+                    return true;
+                }
             });
+            const testingArray = otherReservation
+                .map((item) => {
+                    const existStartNum = Number(
+                        item.startTime?.slice(0, 2) +
+                            item.startTime?.slice(3, 5)
+                    );
+                    const existEndNum = Number(
+                        item.endTime?.slice(0, 2) + item.endTime?.slice(3, 5)
+                    );
+                    if (existStartNum >= endNum || existEndNum <= startNum) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                })
+                .filter((item) => {
+                    if (item == false) {
+                        return true;
+                    }
+                });
+            if (testingArray.length === 0) {
+                await Event.findByIdAndUpdate(id, {
+                    date,
+                    startTime,
+                    endTime,
+                    name,
+                    detail,
+                });
+                return res.status(200).json({
+                    statusCode: "200",
+                    message: "예약이 완료되었습니다.",
+                });
+            } else {
+                return res.status(200).json({
+                    statusCode: "201",
+                    message: "예약시간이 겹칩니다.",
+                });
+            }
         } catch {
             return res.status(200).json({
                 statusCode: "500",
