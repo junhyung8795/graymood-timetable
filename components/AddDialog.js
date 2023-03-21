@@ -157,6 +157,9 @@ export default function AddDialog(props) {
             .toISOString()
             .slice(11, 16);
     };
+    const onKeyDown = (e) => {
+        e.preventDefault();
+    };
     const disableDate = (day) => {
         const today = new Date();
         const limitDay = today.getTime() + 6 * 24 * 60 * 60 * 1000;
@@ -213,7 +216,10 @@ export default function AddDialog(props) {
                                     setDate(dateModifier(d));
                                 }}
                                 renderInput={(params) => (
-                                    <TextField {...params} />
+                                    <TextField
+                                        onKeyDown={onKeyDown}
+                                        {...params}
+                                    />
                                 )}
                                 shouldDisableDate={disableDate}
                             />
