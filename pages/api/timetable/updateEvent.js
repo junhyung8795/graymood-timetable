@@ -50,6 +50,7 @@ export default async function updateEvent(req, res) {
                     endTime,
                     name,
                     detail,
+                    createdAt: Date.now(),
                 });
                 return res.status(200).json({
                     statusCode: "200",
