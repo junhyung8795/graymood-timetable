@@ -25,7 +25,11 @@ export default function TimeTable({ events }) {
 
 export async function getServerSideProps() {
     const eventArray = await Event.find({});
-    const events = eventArray.map((doc) => {
+    const eventArrayCreatedAtModified = eventArray.map((doc) => {
+        doc.createdAt = null;
+        return doc;
+    });
+    const events = eventArrayCreatedAtModified.map((doc) => {
         const item = doc.toObject();
         item._id = item._id.toString();
         return item;
