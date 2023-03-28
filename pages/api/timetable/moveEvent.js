@@ -25,3 +25,7 @@ export default async function moveEvent(req, res) {
         }
     }
 }
+
+export const config = {
+    runtime: "experimental-edge",
+};

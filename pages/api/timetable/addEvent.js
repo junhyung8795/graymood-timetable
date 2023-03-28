@@ -63,3 +63,7 @@ export default async function addEvent(req, res) {
         }
     }
 }
+
+export const config = {
+    runtime: "experimental-edge",
+};
