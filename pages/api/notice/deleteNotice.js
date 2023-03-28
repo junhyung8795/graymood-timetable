@@ -18,3 +18,7 @@ export default async function deleteNotice(req, res) {
         }
     }
 }
+
+export const config = {
+    runtime: "experimental-edge",
+};

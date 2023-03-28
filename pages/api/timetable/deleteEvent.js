@@ -18,3 +18,7 @@ export default async function deleteEvent(req, res) {
         }
     }
 }
+
+export const config = {
+    runtime: "experimental-edge",
+};
