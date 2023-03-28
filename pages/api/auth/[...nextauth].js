@@ -44,7 +44,3 @@ export default NextAuth({
     ],
     secret: process.env.NEXTAUTH_SECRET,
 });
-
-export const config = {
-    runtime: "experimental-edge",
-};

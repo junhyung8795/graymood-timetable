@@ -70,7 +70,3 @@ export default async function updateEvent(req, res) {
         }
     }
 }
-
-export const config = {
-    runtime: "experimental-edge",
-};
