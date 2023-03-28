@@ -22,7 +22,3 @@ export default async function updateNotice(req, res) {
         }
     }
 }
-
-export const config = {
-    runtime: "experimental-edge",
-};

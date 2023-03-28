@@ -27,7 +27,3 @@ export default async function changeMemberCode(req, res) {
         }
     }
 }
-
-export const config = {
-    runtime: "experimental-edge",
-};
