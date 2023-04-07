@@ -150,7 +150,7 @@ export default function Calendar({ props }) {
         const endTime = timeModifier(event.end);
         const id = event.id;
         await fetch(`/api/timetable/moveEvent`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },

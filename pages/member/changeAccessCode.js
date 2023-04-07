@@ -26,7 +26,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
         const changeForm = document.getElementById("change-form");
 
         await fetch("/api/member/changeAccessCode", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },

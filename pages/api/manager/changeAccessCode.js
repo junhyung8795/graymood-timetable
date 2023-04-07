@@ -2,7 +2,7 @@ import ManagerAccessCode from "../../../db/schema/managerAccessCode";
 import MemberAccessCode from "../../../db/schema/memberAccessCode";
 
 export default async function changeManagerCode(req, res) {
-    if (req.method === "POST") {
+    if (req.method === "PUT") {
         try {
             const userCode = req.body.userCode;
             const newCode = await ManagerAccessCode.findOne({});

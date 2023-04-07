@@ -127,7 +127,7 @@ export default function UpdateAndDeleteDialog(props) {
     const handleUpdate = async (e) => {
         setErrorMessage("");
         await fetch(`/api/timetable/updateEvent`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },

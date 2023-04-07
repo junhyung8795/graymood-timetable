@@ -1,7 +1,7 @@
 import Event from "../../../db/schema/event";
 
 export default async function updateEvent(req, res) {
-    if (req.method === "POST") {
+    if (req.method === "PUT") {
         try {
             const name = req.body.name;
             const detail = req.body.detail;

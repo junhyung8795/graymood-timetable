@@ -1,7 +1,7 @@
 import Notice from "../../../db/schema/notice";
 
 export default async function updateNotice(req, res) {
-    if (req.method === "POST") {
+    if (req.method === "PUT") {
         try {
             const noticeDetail = req.body.noticeDetail;
             const noticeTitle = req.body.noticeTitle;

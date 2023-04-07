@@ -25,7 +25,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
         setLoading(true);
         const changeForm = document.getElementById("change-form");
         const response = await fetch("/api/manager/changeAccessCode", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
