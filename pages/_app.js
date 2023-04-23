@@ -2,6 +2,7 @@ import { SessionProvider } from "next-auth/react";
 import "../styles/reset.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
+import { Suspense } from "react";
 
 export default function App({ Component, pageProps }) {
     useEffect(() => {
@@ -9,7 +10,9 @@ export default function App({ Component, pageProps }) {
     }, []);
     return (
         <SessionProvider session={pageProps.session}>
-            <Component {...pageProps} />
+            <Suspense>
+                <Component {...pageProps} />
+            </Suspense>
         </SessionProvider>
     );
 }
