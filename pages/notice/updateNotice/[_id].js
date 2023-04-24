@@ -59,7 +59,7 @@ export default function ChangeNotice({ targetNotice }) {
                 alignItems: "center",
                 justifyContent: "center",
                 overflow: "scroll",
-                backgroundColor: "#111827",
+                backgroundColor: "#FEFEFE",
                 position: "relative",
             }}
         >
@@ -72,11 +72,10 @@ export default function ChangeNotice({ targetNotice }) {
             )}
             <Seo title="Change Notice" />
 
-            <div className="title">
+            <div className="title" style={{ color: "black" }}>
                 <h1>Graymood Timetable</h1>
+                <h1>동방사용 필독사항 변경페이지</h1>
             </div>
-
-            <h1>동방사용 필독사항 변경페이지</h1>
 
             <form
                 className="input-group mb-3"

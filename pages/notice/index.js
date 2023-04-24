@@ -44,7 +44,7 @@ export default function NoticePage({ notice }) {
     return (
         <div
             style={{
-                backgroundColor: "#111827",
+                backgroundColor: "#FEFEFE",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -52,7 +52,7 @@ export default function NoticePage({ notice }) {
                 width: "100vw",
                 padding: "10px 10px",
                 overflow: "scroll",
-                color: "white",
+                color: "black",
                 position: "relative",
             }}
         >
@@ -84,7 +84,8 @@ export default function NoticePage({ notice }) {
                                 setLoading(false);
                             }}
                             style={{
-                                color: "blue",
+                                backgroundColor: "gray",
+                                color: "white",
                             }}
                         >
                             동방 시간표
@@ -114,8 +115,8 @@ export default function NoticePage({ notice }) {
                             <li key={item._id}>
                                 <div
                                     style={{
-                                        backgroundColor: "#1F2937",
-                                        color: "white",
+                                        backgroundColor: "#F0CABF",
+                                        color: "black",
                                         padding: "10px",
                                         display: "flex",
                                         flexDirection: "column",

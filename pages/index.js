@@ -86,9 +86,9 @@ export default function Home() {
                         flex-direction: column;
                         align-items: center;
                         justify-content: center;
-                        background-color: #111827;
+                        background-color: #fefefe;
                         overflow: scroll;
-                        color: white;
+                        color: black;
                         position: relative;
                     }
                     .loading {

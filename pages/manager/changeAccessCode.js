@@ -56,7 +56,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                 alignItems: "center",
                 justifyContent: "center",
                 overflow: "scroll",
-                backgroundColor: "#111827",
+                backgroundColor: "#FEFEFE",
                 position: "relative",
             }}
         >
@@ -68,10 +68,11 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                 <div></div>
             )}
             <Seo title="Change Manager Code" />
-            <div className="title">
+            <div className="title" style={{ color: "black" }}>
                 <h1>Graymood Timetable</h1>
+                <h1>관리자 접속코드 변경페이지</h1>
             </div>
-            <h1>관리자 접속코드 변경페이지</h1>
+
             <form
                 className="input-group mb-3"
                 onSubmit={handleChangeCode}

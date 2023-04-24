@@ -17,11 +17,11 @@ const StyleWrapper = styled.div`
     }
     .fc-day-number {
         font-size: 1.5em;
-        color: #ffff;
+        color: black;
     }
     .fc-day-header {
         font-size: 1.5em;
-        color: #00b294;
+        color: black;
     }
     .fc-header-toolbar {
         font-size: 10px;
@@ -53,26 +53,26 @@ const StyleWrapper = styled.div`
         box-sizing: border-box;
     }
     colgroup {
-        background-color: #1f2937;
+        background-color: #f0cabf;
     }
 
     .fc-col-header-cell-cushion {
-        color: white;
+        color: black;
         text-decoration: none;
     }
 
     .fc-scrollgrid-sync-inner {
-        background-color: #1f2937;
+        background-color: #f0cabf;
     }
 
     .fc-daygrid-day-number {
-        color: white;
+        color: black;
         text-decoration: none;
     }
 
     .fc-event {
-        color: white;
-        background-color: saddlebrown;
+        color: black;
+        background-color: skyblue;
     }
     .fc-daygrid-body-natural {
         display: none;
@@ -198,6 +198,7 @@ export default function Calendar({ props }) {
                         type="button"
                         className="btn btn-outline-info"
                         onClick={handleAddEventOpen}
+                        style={{ backgroundColor: "gray", color: "white" }}
                     >
                         예약하기
                     </button>
@@ -237,7 +238,7 @@ export default function Calendar({ props }) {
                             timeGridPlugin,
                             interactionPugin,
                         ]}
-                        initialView={"dayGridMonth"}
+                        initialView={"timeGridWeek"}
                         headerToolbar={{
                             start: "prev,next",
                             center: "title",
@@ -260,8 +261,8 @@ export default function Calendar({ props }) {
                             setOnEndTime(event._def.extendedProps.endTime);
                         }}
                         stickyHeaderDates="true"
-                        eventColor="#C1BAFD"
-                        eventTextColor="white"
+                        eventColor="skyblue"
+                        eventTextColor="black"
                         displayEventTime={false}
                         eventDragMinDistance={1}
                     />
@@ -269,7 +270,7 @@ export default function Calendar({ props }) {
             </div>
             <style jsx>{`
                 .body {
-                    background-color: #111827;
+                    background-color: #fefefe;
                     display: flex;
                     flex-direction: column;
                     align-items: center;
@@ -282,7 +283,7 @@ export default function Calendar({ props }) {
                     position: absolute;
                     top: 0px;
                     right: 0px;
-                    color: white;
+                    color: black;
                 }
                 .navbar {
                     display: flex;
@@ -292,11 +293,12 @@ export default function Calendar({ props }) {
                     margin-bottom: 20px;
                 }
                 .toNoticeLink {
-                    color: blue;
+                    background-color: gray;
+                    color: white;
                 }
                 .calendarBody {
-                    background-color: #1f2937;
-                    color: white;
+                    background-color: #fefefe;
+                    color: black;
                     width: 100%;
                     border-radius: 10px;
                 }
