@@ -1,5 +1,6 @@
 import ManagerAccessCode from "../../../db/schema/managerAccessCode";
 import MemberAccessCode from "../../../db/schema/memberAccessCode";
+import logger from "@/utils/logger";
 
 export default async function changeManagerCode(req, res) {
     if (req.method === "PUT") {
@@ -19,7 +20,13 @@ export default async function changeManagerCode(req, res) {
                 statusCode: "200",
                 message: "관리자 인증코드가 변경되었습니다.",
             });
-        } catch {
+        } catch (error) {
+            const errorMessage = error.message;
+            const errorStack = error.stack;
+            const errorName = error.name;
+            logger.error(
+                `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
+            );
             return res.status(200).json({
                 statusCode: "500",
                 message: "관리자 인증코드 변경을 실패했습니다.",

@@ -1,4 +1,5 @@
 import Event from "../../../db/schema/event";
+import logger from "@/utils/logger";
 
 export default async function moveEvent(req, res) {
     if (req.method === "PUT") {
@@ -17,7 +18,13 @@ export default async function moveEvent(req, res) {
                 statusCode: "200",
                 message: "예약이 완료되었습니다.",
             });
-        } catch {
+        } catch (error) {
+            const errorMessage = error.message;
+            const errorStack = error.stack;
+            const errorName = error.name;
+            logger.error(
+                `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
+            );
             return res.status(200).json({
                 statusCode: "500",
                 message: "예약을 실패했습니다.",

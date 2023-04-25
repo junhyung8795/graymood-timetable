@@ -1,4 +1,5 @@
 import Event from "../../../db/schema/event";
+import logger from "@/utils/logger";
 
 export default async function addEvent(req, res) {
     if (req.method === "POST") {
@@ -55,7 +56,13 @@ export default async function addEvent(req, res) {
                     message: "예약시간이 겹칩니다.",
                 });
             }
-        } catch {
+        } catch (error) {
+            const errorMessage = error.message;
+            const errorStack = error.stack;
+            const errorName = error.name;
+            logger.error(
+                `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
+            );
             return res.status(500).json({
                 statusCode: "500",
                 message: "서버오류로 예약을 실패했습니다.",

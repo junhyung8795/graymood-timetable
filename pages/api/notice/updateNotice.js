@@ -1,4 +1,5 @@
 import Notice from "../../../db/schema/notice";
+import logger from "@/utils/logger";
 
 export default async function updateNotice(req, res) {
     if (req.method === "PUT") {
@@ -14,7 +15,13 @@ export default async function updateNotice(req, res) {
                 statusCode: "200",
                 message: "공지사항이 변경되었습니다.",
             });
-        } catch {
+        } catch (error) {
+            const errorMessage = error.message;
+            const errorStack = error.stack;
+            const errorName = error.name;
+            logger.error(
+                `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
+            );
             return res.status(200).json({
                 statusCode: "500",
                 message: "공지사항 변경을 실패했습니다.",

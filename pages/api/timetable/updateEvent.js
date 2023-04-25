@@ -1,4 +1,5 @@
 import Event from "../../../db/schema/event";
+import logger from "@/utils/logger";
 
 export default async function updateEvent(req, res) {
     if (req.method === "PUT") {
@@ -62,7 +63,13 @@ export default async function updateEvent(req, res) {
                     message: "예약시간이 겹칩니다.",
                 });
             }
-        } catch {
+        } catch (error) {
+            const errorMessage = error.message;
+            const errorStack = error.stack;
+            const errorName = error.name;
+            logger.error(
+                `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
+            );
             return res.status(200).json({
                 statusCode: "500",
                 message: "예약 변경을 실패했습니다.",
