@@ -1,6 +1,6 @@
 # 링크: https://graymood-timetable.o-r.kr/
 # 동아리원 접속코드는 Member, 관리자 접속코드는 Manager입니다.
-# api는 wiki페이지에서 확인할 수 있습니다.
+# [api는 wiki페이지에서 확인할 수 있습니다.](https://github.com/junhyung8795/graymood-timetable/wiki)
 
 # 프로젝트 이름
 
