@@ -19,10 +19,10 @@
 - 배포: AWS EC2, Nginx, pm2
 
 ## 실행 방법
-1. 저장소 클론: `git clone <repo-url>`
+1. 저장소 클론: `[git clone <repo-url>](https://github.com/junhyung8795/graymood-timetable.git)`
 2. 의존성 설치: `npm install`
 3. .env파일에 NEXT_PUBLIC_MONGODB_URL, NEXTAUTH_URL, NEXTAUTH_SECRET를 추가해야합니다.
-4. 개발 서버 실행: `npm run build` + 'npm run start'
+4. 개발 서버 실행: `npm run build` + `npm run start`
 
 
 ## 상세 내용
