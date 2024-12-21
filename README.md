@@ -27,4 +27,4 @@
 
 
 ## 상세 내용
-더 자세한 프로젝트 설명은 [노션 링크](https://www.notion.so/155e84ee7a7480f9aa97ca8be63d0b3b#a85efe6d58a6487f9a8f4fa4445c15e4)에서 확인할 수 있습니다.
+더 자세한 프로젝트 설명은 [노션 링크](https://vintage-orbit-bf6.notion.site/155e84ee7a7480f9aa97ca8be63d0b3b)에서 확인할 수 있습니다.
