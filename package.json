@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "GENERATE_SOURCEMAP=false next build",
         "start": "next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "test": "jest"
     },
     "dependencies": {
         "@emotion/react": "^11.10.6",

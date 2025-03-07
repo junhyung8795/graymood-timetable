@@ -15,6 +15,7 @@ export default NextAuth({
                         process.env.NEXT_PUBLIC_MONGODB_URL,
                         { useNewUrlParser: true, useUnifiedTopology: true }
                     );
+
                     const MemberAccessCode = await client
                         .db()
                         .collection("memberaccesscodes");
