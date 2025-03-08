@@ -23,7 +23,7 @@ export default function NoticePage({ notice }) {
 
     const handleDeleteNotice = async (e) => {
         setLoading(true);
-        await fetch("/api/notice/deleteNotice", {
+        await fetch("/api/notice", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

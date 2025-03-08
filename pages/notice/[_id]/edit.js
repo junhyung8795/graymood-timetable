@@ -27,7 +27,7 @@ export default function ChangeNotice({ targetNotice }) {
         e.preventDefault();
         setLoading(true);
         const _id = String(router.query._id);
-        await fetch(`/api/notice/updateNotice`, {
+        await fetch(`/api/notice`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

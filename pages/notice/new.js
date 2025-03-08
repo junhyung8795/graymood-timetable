@@ -19,7 +19,7 @@ export default function AddNotice() {
     const handleAddNotice = async (e) => {
         e.preventDefault();
         setLoading(true);
-        await fetch(`/api/notice/addNotice`, {
+        await fetch(`/api/notice`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export default function AddNotice() {
                 } else if (data.statusCode === "500") {
                     detailForm.value = "";
                     detailForm.placeholder = data.message;
-                    router.push("/notice/addNotice");
+                    router.push("/notice/new");
                 } else {
                     router.push("/notice");
                 }
