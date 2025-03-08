@@ -39,7 +39,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
                 } else if (data.statusCode === "500") {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
-                    router.push("/member/changeAccessCode");
+                    router.push("/member/accessCode");
                 } else {
                     router.push("/notice");
                 }

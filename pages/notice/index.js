@@ -208,7 +208,7 @@ export default function NoticePage({ notice }) {
                                 className="btn btn-warning"
                                 onClick={async () => {
                                     setLoading(true);
-                                    router.push("/member/changeAccessCode");
+                                    router.push("/member/accessCode");
                                     setLoading(false);
                                 }}
                                 style={{
