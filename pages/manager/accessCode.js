@@ -38,7 +38,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                 } else if (data.statusCode === "500") {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
-                    router.push("/manager/changeAccessCode");
+                    router.push("/manager/accessCode");
                 } else {
                     router.push("/notice");
                 }

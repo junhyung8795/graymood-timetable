@@ -189,9 +189,7 @@ export default function NoticePage({ notice }) {
                                 className="btn btn-warning"
                                 onClick={async () => {
                                     setLoading(true);
-                                    await router.push(
-                                        "/manager/changeAccessCode"
-                                    );
+                                    await router.push("/manager/accessCode");
                                     setLoading(false);
                                 }}
                                 style={{
