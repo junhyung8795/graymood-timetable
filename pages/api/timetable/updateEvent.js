@@ -58,8 +58,8 @@ export default async function updateEvent(req, res) {
                     message: "예약이 완료되었습니다.",
                 });
             } else {
-                return res.status(200).json({
-                    statusCode: "201",
+                return res.status(409).json({
+                    statusCode: "409",
                     message: "예약시간이 겹칩니다.",
                 });
             }
@@ -70,7 +70,7 @@ export default async function updateEvent(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
-            return res.status(200).json({
+            return res.status(500).json({
                 statusCode: "500",
                 message: "예약 변경을 실패했습니다.",
             });

@@ -2,7 +2,7 @@ import Event from "../../../db/schema/event";
 import logger from "@/utils/logger";
 
 export default async function moveEvent(req, res) {
-    if (req.method === "PUT") {
+    if (req.method === "PATCH") {
         try {
             const date = req.body.date;
             const startTime = req.body.startTime;

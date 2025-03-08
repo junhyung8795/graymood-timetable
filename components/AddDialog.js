@@ -119,7 +119,7 @@ export default function AddDialog(props) {
     };
     const handleReserve = async (e) => {
         setErrorMessage("");
-        await fetch(`/api/timetable/addEvent`, {
+        await fetch(`/api/timetable/events`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -138,9 +138,7 @@ export default function AddDialog(props) {
                 if (data.statusCode === "200") {
                     handleClose();
                     router.push("/timeTable");
-                } else if (data.statusCode === "201") {
-                    setErrorMessage(data.message);
-                } else if (data.statusCode === "500") {
+                } else {
                     setErrorMessage(data.message);
                 }
             });
