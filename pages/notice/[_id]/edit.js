@@ -41,7 +41,7 @@ export default function ChangeNotice({ targetNotice }) {
                 } else if (data.statusCode === "500") {
                     detailForm.value = "";
                     detailForm.placeholder = data.message;
-                    router.push(`/notice/updateNotice/${_id}`);
+                    router.push(`/notice/${_id}/edit`);
                 } else {
                     router.push("/notice");
                 }

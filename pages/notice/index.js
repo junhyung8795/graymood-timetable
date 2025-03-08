@@ -152,7 +152,7 @@ export default function NoticePage({ notice }) {
                                                 onClick={async () => {
                                                     setLoading(true);
                                                     await router.push(
-                                                        `/notice/updateNotice/${item._id}`
+                                                        `/notice/${item._id}/edit`
                                                     );
                                                     setLoading(false);
                                                 }}
@@ -225,7 +225,7 @@ export default function NoticePage({ notice }) {
                                 className="btn btn-warning"
                                 onClick={async () => {
                                     setLoading(true);
-                                    router.push("/notice/addNotice");
+                                    router.push("/notice/new");
                                     setLoading(false);
                                 }}
                                 style={{
