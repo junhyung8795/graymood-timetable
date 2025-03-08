@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+const expirePeriod = 2160000;
 const EventSchema = new mongoose.Schema({
     name: { type: String, required: true },
     detail: { type: String, required: true },
@@ -9,7 +9,7 @@ const EventSchema = new mongoose.Schema({
     password: { type: String, required: true },
     createdAt: {
         type: Date,
-        expires: 2160000,
+        expires: expirePeriod,
         default: Date.now,
     },
 });

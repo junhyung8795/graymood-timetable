@@ -63,6 +63,7 @@ export default async function handler(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "서버오류로 예약을 실패했습니다.",
@@ -136,6 +137,7 @@ export default async function handler(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "예약 변경을 실패했습니다.",
@@ -164,6 +166,7 @@ export default async function handler(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "예약을 실패했습니다.",
@@ -185,6 +188,7 @@ export default async function handler(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "예약 삭제를 실패하였습니다.",

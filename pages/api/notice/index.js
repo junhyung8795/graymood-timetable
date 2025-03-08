@@ -24,6 +24,7 @@ export default async function handler(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "공지사항 추가를 실패했습니다.",
@@ -53,6 +54,7 @@ export default async function handler(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "공지사항 변경을 실패했습니다.",
@@ -73,6 +75,7 @@ export default async function handler(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "동방사용 필독사항 삭제를 실패하였습니다.",

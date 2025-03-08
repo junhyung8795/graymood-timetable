@@ -26,6 +26,7 @@ export default async function changeMemberCode(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
+            await mongoose.disconnect();
             return res.status(500).json({
                 statusCode: "500",
                 message: "동아리원 인증코드 변경을 실패했습니다.",
