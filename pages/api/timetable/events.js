@@ -191,7 +191,7 @@ export default async function handler(req, res) {
             });
         }
     } else {
-        res.setHeader("Allow", ["GET", "POST", "PUT", "PATCH", "DELETE"]);
+        res.setHeader("Allow", ["POST", "PUT", "PATCH", "DELETE"]);
         return res.status(405).json({
             statusCode: "405",
             message: `Method ${req.method} Not Allowed`,
