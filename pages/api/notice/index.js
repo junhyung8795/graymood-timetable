@@ -34,7 +34,7 @@ export default async function handler(req, res) {
             const { noticeDetail, noticeTitle, _id } = req.body;
             const notice = await Notice.findById(_id);
             if (!notice) {
-                return res.status(200).json({
+                return res.status(404).json({
                     statusCode: "404",
                     message: "공지사항을 찾을 수 없습니다.",
                 });
@@ -80,6 +80,9 @@ export default async function handler(req, res) {
         }
     } else {
         res.setHeader("Allow", ["POST", "PUT", "DELETE"]);
-        res.status(405).end(`Method ${req.method} Not Allowed`);
+        return res.status(405).json({
+            statusCode: "405",
+            message: `Method ${req.method} Not Allowed`,
+        });
     }
 }
