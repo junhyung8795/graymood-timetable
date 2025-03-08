@@ -36,7 +36,7 @@ export default async function changeManagerCode(req, res) {
         res.setHeader("Allow", ["PUT"]);
         return res.status(405).json({
             statusCode: "405",
-            message: `Method ${req.method} Not Allowed`,
+            message: `${req.method} 는 허용되지 않는 메소드입니다.`,
         });
     }
 }
