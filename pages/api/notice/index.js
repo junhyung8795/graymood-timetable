@@ -34,11 +34,11 @@ export default async function handler(req, res) {
             const { noticeDetail, noticeTitle, _id } = req.body;
             const notice = await Notice.findById(_id);
             if (!notice) {
-                return res.status(404).json({
+                return res.status(200).json({
                     statusCode: "404",
                     message: "공지사항을 찾을 수 없습니다.",
                 });
-            }
+            } // id에따라 공지사항을 찾지 못하는 경우에 대비
             notice.detail = noticeDetail;
             notice.title = noticeTitle;
             await notice.save();

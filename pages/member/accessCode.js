@@ -25,7 +25,7 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
         setLoading(true);
         const changeForm = document.getElementById("change-form");
 
-        await fetch("/api/member/changeAccessCode", {
+        await fetch("/api/member/accessCode", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -36,12 +36,9 @@ export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
             .then((data) => {
                 if (data.statusCode === "200") {
                     router.push("/notice");
-                } else if (data.statusCode === "500") {
+                } else {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
-                    router.push("/member/accessCode");
-                } else {
-                    router.push("/notice");
                 }
             });
         setLoading(false);

@@ -24,7 +24,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
         e.preventDefault();
         setLoading(true);
         const changeForm = document.getElementById("change-form");
-        const response = await fetch("/api/manager/changeAccessCode", {
+        const response = await fetch("/api/manager/accessCode", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -35,12 +35,9 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
             .then((data) => {
                 if (data.statusCode === "200") {
                     router.push("/notice");
-                } else if (data.statusCode === "500") {
+                } else {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
-                    router.push("/manager/accessCode");
-                } else {
-                    router.push("/notice");
                 }
             });
         setLoading(false);
