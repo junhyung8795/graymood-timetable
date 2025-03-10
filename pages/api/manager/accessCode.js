@@ -10,8 +10,8 @@ export default async function changeManagerCode(req, res) {
             const memberCode = await MemberAccessCode.findOne({});
             newCode.managerAccessCode = userCode;
             if (newCode.managerAccessCode === memberCode.memberAccessCode) {
-                return res.status(400).json({
-                    statusCode: "400",
+                return res.status(409).json({
+                    statusCode: "409",
                     message: "동아리원 접속코드와 같습니다.",
                 });
             }
