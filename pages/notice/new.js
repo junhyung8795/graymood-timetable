@@ -1,21 +1,14 @@
-import Seo from "../../../components/Seo";
-import React, { useEffect, useState } from "react";
+import Seo from "../../components/Seo";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import Notice from "../../../db/schema/notice";
 
-export default function ChangeNotice({ targetNotice }) {
+export default function AddNotice() {
     const router = useRouter();
-    const [noticeDetail, setNoticeDetail] = useState(
-        JSON.parse(targetNotice).detail
-    );
-    const [noticeTitle, setNoticeTitle] = useState(
-        JSON.parse(targetNotice).title
-    );
-
+    const [noticeDetail, setNoticeDetail] = useState("");
+    const [noticeTitle, setNoticeTitle] = useState("");
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
         if (session?.user?.name !== "manager") {
             router.push("/");
@@ -23,16 +16,15 @@ export default function ChangeNotice({ targetNotice }) {
         return;
     }, [router, session?.user?.name]);
 
-    const handleChangeNotice = async (e) => {
+    const handleAddNotice = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const _id = String(router.query._id);
-        await fetch(`/api/notice/updateNotice`, {
-            method: "PUT",
+        await fetch(`/api/notice`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ noticeDetail, noticeTitle, _id }),
+            body: JSON.stringify({ noticeDetail, noticeTitle }),
         })
             .then((response) => response.json())
             .then((data) => {
@@ -41,7 +33,7 @@ export default function ChangeNotice({ targetNotice }) {
                 } else if (data.statusCode === "500") {
                     detailForm.value = "";
                     detailForm.placeholder = data.message;
-                    router.push(`/notice/updateNotice/${_id}`);
+                    router.push("/notice/new");
                 } else {
                     router.push("/notice");
                 }
@@ -61,6 +53,7 @@ export default function ChangeNotice({ targetNotice }) {
                 overflow: "scroll",
                 backgroundColor: "#FEFEFE",
                 position: "relative",
+                color: "black",
             }}
         >
             {loading ? (
@@ -70,16 +63,16 @@ export default function ChangeNotice({ targetNotice }) {
             ) : (
                 <div></div>
             )}
-            <Seo title="Change Notice" />
+            <Seo title="Add Notice" />
 
             <div className="title" style={{ color: "black" }}>
                 <h1>Graymood Timetable</h1>
-                <h1>동방사용 필독사항 변경페이지</h1>
+                <h1>동방사용 필독사항 추가페이지</h1>
             </div>
 
             <form
                 className="input-group mb-3"
-                onSubmit={handleChangeNotice}
+                onSubmit={handleAddNotice}
                 style={{ display: "flex" }}
             >
                 <div className="input-group">
@@ -87,8 +80,8 @@ export default function ChangeNotice({ targetNotice }) {
                     <textarea
                         id="titleForm"
                         className="form-control"
-                        placeholder="제목을 작성해주세요"
-                        defaultValue={noticeTitle}
+                        placeholder=""
+                        defaultValue={""}
                         onChange={({ target }) => setNoticeTitle(target.value)}
                         required={true}
                     />
@@ -101,25 +94,17 @@ export default function ChangeNotice({ targetNotice }) {
                         rows={6}
                         style={{ width: "80vw", marginTop: "50px" }}
                         placeholder="공지사항을 작성해주세요"
-                        defaultValue={noticeDetail}
                         onChange={({ target }) => setNoticeDetail(target.value)}
                         required={true}
                     />
                 </div>
 
-                <div className="col-12">
+                <div className="col-12" style={{ marginTop: "15px" }}>
                     <button className="btn btn-primary" type="submit">
-                        공지사항 변경
+                        공지사항 추가
                     </button>
                 </div>
             </form>
         </div>
     );
-}
-
-export async function getServerSideProps(context) {
-    const response = await Notice.findById(context.query._id);
-    const targetNotice = JSON.stringify(response);
-
-    return { props: { targetNotice } };
 }

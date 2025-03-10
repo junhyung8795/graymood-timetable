@@ -149,8 +149,8 @@ export default function Calendar({ props }) {
         const startTime = timeModifier(event.start);
         const endTime = timeModifier(event.end);
         const id = event.id;
-        await fetch(`/api/timetable/moveEvent`, {
-            method: "PUT",
+        await fetch(`/api/timetable/events`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
             },

@@ -3,12 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import ManagerAccessCode from "../../db/schema/managerAccessCode";
+import MemberAccessCode from "../../db/schema/memberAccessCode";
 
-export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
+export default function ChangeMemberAccessCode({ targetMemeberAccessCode }) {
     const router = useRouter();
     const [userCode, setUserCode] = useState(
-        JSON.parse(targetManagerAccessCode).managerAccessCode
+        JSON.parse(targetMemeberAccessCode).memberAccessCode
     );
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(false);
@@ -24,7 +24,8 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
         e.preventDefault();
         setLoading(true);
         const changeForm = document.getElementById("change-form");
-        const response = await fetch("/api/manager/changeAccessCode", {
+
+        await fetch("/api/member/accessCode", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -35,12 +36,9 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
             .then((data) => {
                 if (data.statusCode === "200") {
                     router.push("/notice");
-                } else if (data.statusCode === "500") {
+                } else {
                     changeForm.value = "";
                     changeForm.placeholder = data.message;
-                    router.push("/manager/changeAccessCode");
-                } else {
-                    router.push("/notice");
                 }
             });
         setLoading(false);
@@ -67,10 +65,10 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
             ) : (
                 <div></div>
             )}
-            <Seo title="Change Manager Code" />
+            <Seo title="Change Member Code" />
             <div className="title" style={{ color: "black" }}>
                 <h1>Graymood Timetable</h1>
-                <h1>관리자 접속코드 변경페이지</h1>
+                <h1>동아리원 접속코드 변경페이지</h1>
             </div>
 
             <form
@@ -94,8 +92,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                         className="form-control"
                         placeholder="write the code"
                         defaultValue={
-                            JSON.parse(targetManagerAccessCode)
-                                .managerAccessCode
+                            JSON.parse(targetMemeberAccessCode).memberAccessCode
                         }
                         aria-label="Username"
                         aria-describedby="basic-addon1"
@@ -107,7 +104,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
                     style={{ display: "flex", justifyContent: "center" }}
                 >
                     <button className="btn btn-primary" type="submit">
-                        관리자 접속코드 변경
+                        동아리원 접속코드 변경
                     </button>
                 </div>
             </form>
@@ -116,7 +113,7 @@ export default function ChangeManagerAccessCode({ targetManagerAccessCode }) {
 }
 
 export async function getServerSideProps() {
-    const response = await ManagerAccessCode.findOne({});
-    const targetManagerAccessCode = JSON.stringify(response);
-    return { props: { targetManagerAccessCode } };
+    const response = await MemberAccessCode.findOne({});
+    const targetMemeberAccessCode = JSON.stringify(response);
+    return { props: { targetMemeberAccessCode } };
 }

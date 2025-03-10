@@ -126,7 +126,7 @@ export default function UpdateAndDeleteDialog(props) {
     };
     const handleUpdate = async (e) => {
         setErrorMessage("");
-        await fetch(`/api/timetable/updateEvent`, {
+        await fetch(`/api/timetable/events`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -145,16 +145,14 @@ export default function UpdateAndDeleteDialog(props) {
                 if (data.statusCode === "200") {
                     handleClose();
                     router.push("/timeTable");
-                } else if (data.statusCode === "201") {
-                    setErrorMessage(data.message);
-                } else if (data.statusCode === "500") {
+                } else {
                     setErrorMessage(data.message);
                 }
             });
     };
     const handleDelete = async (e) => {
         setErrorMessage("");
-        await fetch(`/api/timetable/deleteEvent`, {
+        await fetch(`/api/timetable/events`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -167,8 +165,8 @@ export default function UpdateAndDeleteDialog(props) {
             .then((data) => {
                 if (data.statusCode === "200") {
                     router.push("/timeTable");
-                } else if (data.statusCode === "500") {
-                    router.push("/timeTable");
+                } else {
+                    setErrorMessage(data.message);
                 }
             });
     };

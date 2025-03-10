@@ -9,8 +9,8 @@ export default async function changeMemberCode(req, res) {
             const managerCode = await ManagerAccessCode.findOne({});
             newCode.memberAccessCode = userCode;
             if (newCode.memberAccessCode === managerCode.managerAccessCode) {
-                return res.status(200).json({
-                    statusCode: "500",
+                return res.status(409).json({
+                    statusCode: "409",
                     message: "관리자 접속코드와 같습니다.",
                 });
             }
@@ -26,10 +26,17 @@ export default async function changeMemberCode(req, res) {
             logger.error(
                 `Error: ${errorMessage}, Stack: ${errorStack}, Name: ${errorName}`
             );
-            return res.status(200).json({
+            await mongoose.disconnect();
+            return res.status(500).json({
                 statusCode: "500",
                 message: "동아리원 인증코드 변경을 실패했습니다.",
             });
         }
+    } else {
+        res.setHeader("Allow", ["PUT"]);
+        return res.status(405).json({
+            statusCode: "405",
+            message: `${req.method} 는 허용되지 않는 메소드입니다.`,
+        });
     }
 }

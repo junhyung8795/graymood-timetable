@@ -23,7 +23,7 @@ export default function NoticePage({ notice }) {
 
     const handleDeleteNotice = async (e) => {
         setLoading(true);
-        await fetch("/api/notice/deleteNotice", {
+        await fetch("/api/notice", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -152,7 +152,7 @@ export default function NoticePage({ notice }) {
                                                 onClick={async () => {
                                                     setLoading(true);
                                                     await router.push(
-                                                        `/notice/updateNotice/${item._id}`
+                                                        `/notice/${item._id}/edit`
                                                     );
                                                     setLoading(false);
                                                 }}
@@ -189,9 +189,7 @@ export default function NoticePage({ notice }) {
                                 className="btn btn-warning"
                                 onClick={async () => {
                                     setLoading(true);
-                                    await router.push(
-                                        "/manager/changeAccessCode"
-                                    );
+                                    await router.push("/manager/accessCode");
                                     setLoading(false);
                                 }}
                                 style={{
@@ -208,7 +206,7 @@ export default function NoticePage({ notice }) {
                                 className="btn btn-warning"
                                 onClick={async () => {
                                     setLoading(true);
-                                    router.push("/member/changeAccessCode");
+                                    router.push("/member/accessCode");
                                     setLoading(false);
                                 }}
                                 style={{
@@ -225,7 +223,7 @@ export default function NoticePage({ notice }) {
                                 className="btn btn-warning"
                                 onClick={async () => {
                                     setLoading(true);
-                                    router.push("/notice/addNotice");
+                                    router.push("/notice/new");
                                     setLoading(false);
                                 }}
                                 style={{
