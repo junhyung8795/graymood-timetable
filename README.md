@@ -20,7 +20,7 @@
 
 ## 기술 스택
 
--   프론트엔드: Next.js, React, Material UI
+-   프론트엔드: Next.js, React.js, Material UI
 -   백엔드: Next.js
 -   데이터베이스: MongoDB
 -   배포: AWS EC2, Nginx, pm2, Certbot
