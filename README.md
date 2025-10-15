@@ -35,3 +35,83 @@
 ## 상세 내용
 
 더 자세한 프로젝트 설명은 [노션 링크](https://vintage-orbit-bf6.notion.site/155e84ee7a7480f9aa97ca8be63d0b3b)에서 확인할 수 있습니다.
+
+
+## 기능 미리보기
+
+### 1) 로그인
+
+![image.png](attachment:0113785a-3d89-48b7-80e6-759d44aae412:image.png)
+
+---
+
+### 2) 공지 확인
+
+### 사용자 뷰
+
+![image.png](attachment:b51ee0ed-871c-4844-ad67-8cf8eb4e57d8:image.png)
+
+### 관리자 뷰
+
+![image.png](attachment:ba4eb5d1-dc90-4cb7-8685-5af4833ff4cf:image.png)
+
+---
+
+### 3) 날짜 선택 (DatePicker)
+
+![image.png](attachment:7b7a7c8f-5966-4584-b25a-6220f869f2c8:image.png)
+
+![image.png](attachment:f2ce9485-e2d9-4bd8-bd3e-76cbe41d1fdd:image.png)
+
+---
+
+![image.png](attachment:789bddc9-f4a5-4126-883d-2895c1c93cce:image.png)
+
+### 4) 예약 생성
+
+![image.png](attachment:37234a50-b3e9-464f-859b-98526ad1e9e1:image.png)
+
+---
+
+### 5) 캘린더 확인 (Week / Month)
+
+### 주간 뷰
+
+![image.png](attachment:f30397c6-7a0b-43e8-a66e-7076d10a79fa:image.png)
+
+### 월간 뷰
+
+![image.png](attachment:2b1dfce3-ea4f-4a47-9726-89755a41f113:image.png)
+
+---
+
+### 6) 예약 수정/삭제
+
+![image.png](attachment:8dfcc446-47d7-49aa-86af-c4fd0b08c067:image.png)
+
+---
+
+### 7) 권한별 예약 수정/삭제 차이
+
+### 동아리원 (비밀번호 필요)
+
+- 예약을 수정/삭제하려면 본인이 입력한 비밀번호를 먼저 확인해야 합니다.
+- 올바른 비밀번호를 입력하면 이후 수정/삭제 화면이 열립니다.
+
+![image.png](attachment:f3c98813-310a-430e-8d73-678c884ee3dd:image.png)
+
+### 관리자
+
+- 비밀번호 입력 단계 없이 바로 수정/삭제 화면이 열립니다.
+- 모든 예약에 대해 접근 가능하며, 공지사항 변경도 지원합니다.
+
+---
+
+## 핵심 기능 요약
+
+- **간편 로그인 코드**: 관리자 / 동아리원 분리
+- **공지 관리(관리자 전용)**: 예약 우선순위, 사용 수칙 공지 가능
+- **날짜·시간 선택** 후 **이름/용도/비밀번호** 입력으로 예약 생성
+- **주/월 캘린더 뷰**에서 예약 현황 확인
+- **예약 클릭 → 수정/삭제** 가능
+- **동아리원은 비밀번호 확인**, **관리자는 바로 접근 가능**
