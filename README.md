@@ -40,8 +40,8 @@
 ## 기능 미리보기
 
 ### 1) 로그인
+<img width="1852" height="1202" alt="image" src="https://github.com/user-attachments/assets/f8604900-4a29-4e32-8c51-23236f4ce449" />
 
-![image.png](attachment:0113785a-3d89-48b7-80e6-759d44aae412:image.png)
 
 ---
 
@@ -49,27 +49,33 @@
 
 ### 사용자 뷰
 
-![image.png](attachment:b51ee0ed-871c-4844-ad67-8cf8eb4e57d8:image.png)
+<img width="2047" height="899" alt="image" src="https://github.com/user-attachments/assets/85e001d5-0e84-4cb5-a532-065e962ee376" />
+
 
 ### 관리자 뷰
 
-![image.png](attachment:ba4eb5d1-dc90-4cb7-8685-5af4833ff4cf:image.png)
+<img width="2048" height="1196" alt="image" src="https://github.com/user-attachments/assets/c572a707-7285-4042-8f7f-23c902444244" />
+
 
 ---
 
 ### 3) 날짜 선택 (DatePicker)
 
-![image.png](attachment:7b7a7c8f-5966-4584-b25a-6220f869f2c8:image.png)
+<img width="2814" height="1534" alt="image" src="https://github.com/user-attachments/assets/304c38e7-ca1c-4c36-b925-621906a2c60c" />
 
-![image.png](attachment:f2ce9485-e2d9-4bd8-bd3e-76cbe41d1fdd:image.png)
+
+<img width="2048" height="1134" alt="image" src="https://github.com/user-attachments/assets/d2cc1803-c69b-41a7-bbdf-9f5b68fda10d" />
+
 
 ---
 
-![image.png](attachment:789bddc9-f4a5-4126-883d-2895c1c93cce:image.png)
+<img width="2832" height="1500" alt="image" src="https://github.com/user-attachments/assets/d54f9b5a-dcba-4dcc-930a-8920cdff797e" />
+
 
 ### 4) 예약 생성
 
-![image.png](attachment:37234a50-b3e9-464f-859b-98526ad1e9e1:image.png)
+<img width="2824" height="1514" alt="image" src="https://github.com/user-attachments/assets/71d343e8-c646-47c3-ba8d-1c2e9b25d904" />
+
 
 ---
 
@@ -77,17 +83,20 @@
 
 ### 주간 뷰
 
-![image.png](attachment:f30397c6-7a0b-43e8-a66e-7076d10a79fa:image.png)
+<img width="2048" height="1085" alt="image" src="https://github.com/user-attachments/assets/f2e226d3-c3e1-421c-8a3a-4f203e4ebc93" />
+
 
 ### 월간 뷰
 
-![image.png](attachment:2b1dfce3-ea4f-4a47-9726-89755a41f113:image.png)
+<img width="2048" height="1082" alt="image" src="https://github.com/user-attachments/assets/c78ada18-d6c4-4f0f-8e66-e9dad897f97d" />
+
 
 ---
 
 ### 6) 예약 수정/삭제
 
-![image.png](attachment:8dfcc446-47d7-49aa-86af-c4fd0b08c067:image.png)
+<img width="2048" height="1110" alt="image" src="https://github.com/user-attachments/assets/907ff472-b731-430f-ad9c-c3befb227d0a" />
+<img width="2048" height="1089" alt="image" src="https://github.com/user-attachments/assets/31b3a244-0e5c-49aa-9a55-122560a14460" />
 
 ---
 
@@ -98,7 +107,6 @@
 - 예약을 수정/삭제하려면 본인이 입력한 비밀번호를 먼저 확인해야 합니다.
 - 올바른 비밀번호를 입력하면 이후 수정/삭제 화면이 열립니다.
 
-![image.png](attachment:f3c98813-310a-430e-8d73-678c884ee3dd:image.png)
 
 ### 관리자
 
@@ -110,7 +118,7 @@
 ## 핵심 기능 요약
 
 - **간편 로그인 코드**: 관리자 / 동아리원 분리
-- **공지 관리(관리자 전용)**: 예약 우선순위, 사용 수칙 공지 가능
+- **공지 관리(관리자 전용)**: 공지사항 수정, 삭제, 추가 가능
 - **날짜·시간 선택** 후 **이름/용도/비밀번호** 입력으로 예약 생성
 - **주/월 캘린더 뷰**에서 예약 현황 확인
 - **예약 클릭 → 수정/삭제** 가능
