@@ -1,4 +1,3 @@
-# 링크: https://graymood-timetable.o-r.kr/
 
 # 동아리원 접속코드는 Member, 관리자 접속코드는 Manager입니다.
 
